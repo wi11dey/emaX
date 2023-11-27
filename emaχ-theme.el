@@ -7,7 +7,8 @@
  'emaχ
  ;;;; Base
  '(default ((default
-	     :family "NewComputerModern10" ; Has slightly more weight than Latin Modern Roman.
+	     :family "NewComputerModern10"
+	     :weight book
 	     :height 135)
 	    (((type mac))
 	     ;; HiDPI:
