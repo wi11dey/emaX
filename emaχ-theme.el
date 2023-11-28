@@ -123,10 +123,18 @@
 		   :foreground unspecified)))
  
  ;;;; Magit
+ '(magit-section-heading ((default
+			   :foreground unspecified
+			   :inherit outline-8)))
  '(magit-hash ((default
 		:foreground unspecified)))
  '(magit-branch-local ((default
-			:foreground unspecified))))
+			:foreground unspecified)))
+
+ ;;;; Help
+ '(help-key-binding ((default
+		      :inherit minibuffer-prompt))))
+
 ;;; Variables
 (custom-theme-set-variables
  'emaχ
