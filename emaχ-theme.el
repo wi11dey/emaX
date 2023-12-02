@@ -84,18 +84,18 @@ it is disabled." t)
 	     ;; HiDPI:
 	     :height 170)))
  '(success ((default
-	     :foreground "unspecified")))
+	     :foreground unspecified)))
  '(cursor ((default
 	    :background "black")))
  '(fringe ((default
-	    :background "unspecified")))
+	    :background unspecified)))
  '(variable-pitch ((default
-		    :family "unspecified")))
+		    :family unspecified)))
  '(button ((default
-	    :foreground "unspecified"
+	    :foreground unspecified
 	    :underline t)))
  '(link ((default
-	  :foreground "unspecified"
+	  :foreground unspecified
 	  :underline t)))
  '(custom-button ((default
 		   :box (:line-width (1 . 1) :color "black" :style released-button)
@@ -139,8 +139,8 @@ it is disabled." t)
 
  ;;;; Mode line
  '(header-line ((default
-		 :foreground "unspecified"
-		 :background "unspecified"
+		 :foreground unspecified
+		 :background unspecified
 		 :underline t)))
  '(mode-line ((default :inherit default)))
  '(minibuffer-line ((default :inherit nil)))
@@ -166,27 +166,27 @@ it is disabled." t)
 
  ;;;; Font lock
  '(font-lock-keyword-face ((default
-			    :foreground "unspecified")))
+			    :foreground unspecified)))
  '(font-lock-builtin-face ((default
-			    :foreground "unspecified")))
+			    :foreground unspecified)))
  '(font-lock-function-name-face ((default
-				  :foreground "unspecified")))
+				  :foreground unspecified)))
  '(font-lock-variable-name-face ((default
-				  :foreground "unspecified")))
+				  :foreground unspecified)))
  '(font-lock-type-face ((default
-			 :foreground "unspecified"
+			 :foreground unspecified
 			 :inherit bold)))
  '(font-lock-comment-face ((default
-			    :foreground "unspecified"
+			    :foreground unspecified
 			    :inherit italic)))
  '(font-lock-string-face ((default
 			   :family "Latin Modern Roman Unslanted"
-			   :foreground "unspecified")))
+			   :foreground unspecified)))
  '(font-lock-doc-face ((default
-			:foreground "unspecified"
+			:foreground unspecified
 			:inherit font-lock-string-face)))
  '(font-lock-constant-face ((default
-			     :foreground "unspecified"
+			     :foreground unspecified
 			     :inherit default)))
  '(font-lock-warning-face ((default
 			    :inherit bold)))
@@ -201,16 +201,18 @@ it is disabled." t)
  ;;;; Transient
  '(transient-key ((default
 		   :family "NewComputerModernMono10" ; Transient keys are never aligned, even with `transient-align-variable-pitch'.
-		   :foreground "unspecified")))
+		   :foreground unspecified)))
  
  ;;;; Magit
  '(magit-section-heading ((default
-			   :foreground "unspecified"
+			   :foreground unspecified
 			   :inherit outline-8)))
  '(magit-hash ((default
-		:foreground "unspecified")))
+		:foreground unspecified)))
  '(magit-branch-local ((default
-			:foreground "unspecified")))
+			:foreground unspecified)))
+ '(git-commit-summary ((default
+			:foreground unspecified)))
 
  ;;;; Compilation
  '(compilation-warning ((default
