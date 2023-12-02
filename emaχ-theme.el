@@ -3,6 +3,7 @@
   "Distraction-free, monochromatic theme inspired by TeX. Plays nice with other themes.")
 
 (require 'olivetti)
+(defvar org-appear-mode nil)
 (autoload 'org-appear-mode "org-appear"
   "A minor mode that automatically toggles elements in Org mode.
 
@@ -21,6 +22,7 @@ The mode's hook is called both when the mode is enabled and when
 it is disabled.
 
 \(fn &optional ARG)" t)
+(defvar org-modern-mode nil)
 (autoload 'org-modern-mode "org-modern"
   "Modern looks for Org.
 
@@ -83,6 +85,10 @@ it is disabled." t)
 	    (((type mac))
 	     ;; HiDPI:
 	     :height 170)))
+ '(fixed-pitch ((default
+		 :family "NewComputerModernMono10"
+		 :weight regular
+		 :height 1.05)))
  '(success ((default
 	     :foreground unspecified)))
  '(cursor ((default
@@ -134,8 +140,10 @@ it is disabled." t)
 
  ;;;; Org
  ;; TODO: Need to fix variable-pitch indentation to get rid of this:
+ '(org-document-title ((default
+			:inherit outline-1)))
  '(org-block ((default
-	       :family "NewComputerModernMono10")))
+	       :inherit fixed-pitch)))
 
  ;;;; Mode line
  '(header-line ((default
@@ -240,6 +248,7 @@ it is disabled." t)
 ;;; Variables
 (custom-theme-set-variables
  'emaχ
+ '(cursor-in-non-selected-windows nil)
  '(ivy-count-format "")
  '(prettify-symbols-alist
    ;; TODO: These should be font-lock-keywords, either to match within symbols or to set the font to NewComputerModernMath:
@@ -260,15 +269,17 @@ it is disabled." t)
  '(transient-align-variable-pitch t)
  '(indicate-empty-lines nil)
  ;; '(cursor-type '(bar . 2))
+ '(global-olivetti-mode t)
  ;;;; Diff HL
  '(diff-hl-fringe-bmp-function #'emaχ-diff-hl-bmp)
  '(diff-hl-draw-borders nil)
  ;;;; Org
  '(org-hide-emphasis-markers t)
  '(org-link-descriptive t)
- '(org-pretty-entities)
+ '(org-pretty-entities t)
+ '(org-hidden-keywords '(title))
  ;;;;; Modern
- '(global-org-modern-mode t)
+ '(emaχ-global-org-modern-mode t)
  ;;;;; Appear
  '(global-org-appear-mode t)
  '(org-appear-autoemphasis t)
