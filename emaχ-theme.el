@@ -1,4 +1,29 @@
-;;; emaχ-theme.el
+;;; emaχ-theme.el --- Distraction-free, monochromatic theme inspired by TeX -*- lexical-binding: t; -*-
+
+;; Author: Will Dey
+;; Maintainer: Will Dey
+;; Keywords: theme monochromatic tex
+;; Version: 1.0.0
+;; Created: November 2018
+;; Package-Requires: ((olivetti "2.0.5") (org-appear "0.3.0") (org-modern "0.10"))
+
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+;;; Commentary:
+
+;;; Code:
+
 (deftheme emaχ
   "Distraction-free, monochromatic theme inspired by TeX. Plays nice with other themes.")
 
@@ -74,7 +99,7 @@ it is disabled." t)
 ;;; Fringe
 ;;;; Diff HL
 (define-fringe-bitmap 'emaχ-diff-hl
-  (make-vector 1 #b00000011)
+  (make-vector 1 #b11000000)
   nil nil
   '(top :periodic))
 (define-fringe-bitmap 'emaχ-diff-hl-delete
@@ -97,13 +122,15 @@ it is disabled." t)
 	    (((type mac))
 	     ;; HiDPI:
 	     :height 170)))
+ '(cursor ((((background light))
+	    :background "black")
+	   (((background dark))
+	    :background "white")))
  '(fixed-pitch ((default
 		 :family "Latin Modern Mono"
 		 :weight regular)))
  '(success ((default
 	     :foreground unspecified)))
- '(cursor ((default
-	    :background "black")))
  '(fringe ((default
 	    :background unspecified)))
  '(variable-pitch ((default
@@ -239,9 +266,20 @@ it is disabled." t)
 			:foreground unspecified)))
  '(magit-diff-file-heading ((default
 			     :foreground unspecified)))
+ '(magit-branch-remote ((default
+			 :foreground unspecified)))
  '(git-commit-summary ((default
 			:foreground unspecified)))
- ;;;;; Branches
+ ;;;;; Log
+ '(magit-log-author ((default
+		      :foreground unspecified
+		      :inherit fixed-pitch)))
+ '(magit-log-date ((default
+		    :foreground unspecified
+		    :inherit fixed-pitch)))
+ '(magit-log-graph ((default
+		     :foreground unspecified
+		     :inherit (shadow fixed-pitch))))
 
  ;;;; Compilation
  '(compilation-warning ((default
@@ -268,11 +306,22 @@ it is disabled." t)
 
  ;;;; Rec
  '(rec-field-name-face ((default
-			 :inherit outline-8))))
+			 :inherit outline-8)))
+
+ ;;;; Info
+ '(Info-quoted ((default
+		 :inherit nit)))
+
+ ;;;; Custom
+ '(custom-variable-tag ((default
+			 :foreground unspecified)))
+ '(custom-state ((default
+		  :foreground unspecified))))
 
 ;;; Variables
 (custom-theme-set-variables
  'emaχ
+ '(indicate-buffer-boundaries nil)
  '(dired-free-space nil)
  '(cursor-in-non-selected-windows nil)
  '(ivy-count-format "")
