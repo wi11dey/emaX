@@ -221,6 +221,7 @@ it is disabled." t)
 				       :inherit bold)))
 
  ;;;; Diff HL
+ ;; The string "unspecified" here causes the face engine to use values from the `default' face, whereas the symbol `unspecified' will use face inheritance.
  '(diff-hl-change ((default
 		    :inverse-video t
 		    :foreground "unspecified")))
