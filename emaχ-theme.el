@@ -2,6 +2,19 @@
 (deftheme emaχ
   "Monochromatic theme inspired by TeX. Plays nice with colors from other themes.")
 
+(define-fringe-bitmap 'emaχ-diff-hl
+  (make-vector 1 #b11000000)
+  nil nil
+  '(top :periodic))
+(define-fringe-bitmap 'emaχ-diff-hl-delete
+  (make-vector 2 #b11111111)
+  nil nil
+  'top)
+(defun emaχ-diff-hl-bmp (type _pos)
+  (if (eq type 'delete)
+      'emaχ-diff-hl-delete
+    'emaχ-diff-hl))
+
 ;;; Faces
 (custom-theme-set-faces
  'emaχ
@@ -9,84 +22,29 @@
  '(default ((default
 	     :family "NewComputerModern10"
 	     :weight book
-	     :height 135)
+	     :height 140)
 	    (((type mac))
 	     ;; HiDPI:
 	     :height 170)))
  '(success ((default
-	     :foreground unspecified)))
+	     :foreground "unspecified")))
  '(cursor ((default
 	    :background "black")))
  '(fringe ((default
-	    :background unspecified)))
+	    :background "unspecified")))
  '(variable-pitch ((default
-		    :family unspecified)))
+		    :family "unspecified")))
  '(button ((default
-	    :foreground unspecified
+	    :foreground "unspecified"
 	    :underline t)))
  '(link ((default
-	  :foreground unspecified
+	  :foreground "unspecified"
 	  :underline t)))
  '(custom-button ((default
 		   :box (:line-width (1 . 1) :color "black" :style released-button)
 		   :inherit nil)))
 
- ;;;; Mode line
- '(header-line ((default
-		 :foreground unspecified
-		 :background unspecified
-		 :underline t)))
- '(mode-line ((default :inherit default)))
- '(minibuffer-line ((default :inherit nil)))
-
- ;;;; Minibuffer
- '(minibuffer-prompt ((default
-		       :inherit bold)))
- ;;;;; Ivy
- '(ivy-current-match ((default
-		       :inherit underline)))
- '(ivy-minibuffer-match-face-1 ((default
-				 :inherit bold)))
- '(ivy-minibuffer-match-face-2 ((default
-				 :inherit ivy-minibuffer-match-face-1)))
- '(ivy-minibuffer-match-face-3 ((default
-				 :inherit ivy-minibuffer-match-face-1)))
- '(ivy-minibuffer-match-face-4 ((default
-				 :inherit ivy-minibuffer-match-face-1)))
-
- ;;;; Font lock
- '(font-lock-keyword-face ((default
-			    :foreground unspecified)))
- '(font-lock-builtin-face ((default
-			    :foreground unspecified)))
- '(font-lock-function-name-face ((default
-				  :foreground unspecified)))
- '(font-lock-variable-name-face ((default
-				  :foreground unspecified)))
- '(font-lock-type-face ((default
-			 :foreground unspecified
-			 :inherit bold)))
- '(font-lock-comment-face ((default
-			    :foreground unspecified
-			    :inherit italic)))
- '(font-lock-string-face ((default
-			   :family "Latin Modern Roman Unslanted"
-			   :foreground unspecified)))
- '(font-lock-doc-face ((default
-			:foreground unspecified
-			:inherit font-lock-string-face)))
- '(font-lock-constant-face ((default
-			     :foreground unspecified
-			     :inherit default)))
-
- ;;;; Parentheses
- '(show-paren-match ((default
-		      :background unspecified
-		      :inherit (bold underline))))
- '(sp-pair-overlay-face ((default
-			  :inherit nil)))
-
- ;;;; Headings
+  ;;;; Headings
  '(outline-minor-file-local-prop-line ((default
 					:inherit nil)))
  '(outline-1 ((default
@@ -117,23 +75,100 @@
  '(outline-minor-0 ((default
 		     :inherit nil)))
 
- ;;;; Transient
- '(transient-key ((default
-		   :family "NewComputerModernMono10" ; Transient keys are never aligned, even with `transient-align-variable-pitch'.
-		   :foreground unspecified)))
- 
- ;;;; Magit
- '(magit-section-heading ((default
-			   :foreground unspecified
-			   :inherit outline-8)))
- '(magit-hash ((default
-		:foreground unspecified)))
- '(magit-branch-local ((default
-			:foreground unspecified)))
+ ;;;; Mode line
+ '(header-line ((default
+		 :foreground "unspecified"
+		 :background "unspecified"
+		 :underline t)))
+ '(mode-line ((default :inherit default)))
+ '(minibuffer-line ((default :inherit nil)))
 
  ;;;; Help
  '(help-key-binding ((default
-		      :inherit minibuffer-prompt))))
+		      :inherit minibuffer-prompt)))
+
+ ;;;; Minibuffer
+ '(minibuffer-prompt ((default
+		       :inherit bold)))
+ ;;;;; Ivy
+ '(ivy-current-match ((default
+		       :inherit underline)))
+ '(ivy-minibuffer-match-face-1 ((default
+				 :inherit bold)))
+ '(ivy-minibuffer-match-face-2 ((default
+				 :inherit ivy-minibuffer-match-face-1)))
+ '(ivy-minibuffer-match-face-3 ((default
+				 :inherit ivy-minibuffer-match-face-1)))
+ '(ivy-minibuffer-match-face-4 ((default
+				 :inherit ivy-minibuffer-match-face-1)))
+
+ ;;;; Font lock
+ '(font-lock-keyword-face ((default
+			    :foreground "unspecified")))
+ '(font-lock-builtin-face ((default
+			    :foreground "unspecified")))
+ '(font-lock-function-name-face ((default
+				  :foreground "unspecified")))
+ '(font-lock-variable-name-face ((default
+				  :foreground "unspecified")))
+ '(font-lock-type-face ((default
+			 :foreground "unspecified"
+			 :inherit bold)))
+ '(font-lock-comment-face ((default
+			    :foreground "unspecified"
+			    :inherit italic)))
+ '(font-lock-string-face ((default
+			   :family "Latin Modern Roman Unslanted"
+			   :foreground "unspecified")))
+ '(font-lock-doc-face ((default
+			:foreground "unspecified"
+			:inherit font-lock-string-face)))
+ '(font-lock-constant-face ((default
+			     :foreground "unspecified"
+			     :inherit default)))
+
+ ;;;; Parentheses
+ '(show-paren-match ((default
+		      :background "unspecified"
+		      :inherit bold)))
+ '(sp-pair-overlay-face ((default
+			  :inherit nil)))
+
+ ;;;; Transient
+ '(transient-key ((default
+		   :family "NewComputerModernMono10" ; Transient keys are never aligned, even with `transient-align-variable-pitch'.
+		   :foreground "unspecified")))
+ 
+ ;;;; Magit
+ '(magit-section-heading ((default
+			   :foreground "unspecified"
+			   :inherit outline-8)))
+ '(magit-hash ((default
+		:foreground "unspecified")))
+ '(magit-branch-local ((default
+			:foreground "unspecified")))
+
+ ;;;; Compilation
+ '(compilation-warning ((default
+			 :weight bold)))
+
+ ;;;; Eldoc
+ '(eldoc-highlight-function-argument ((default
+				       :inherit bold)))
+
+ ;;;; Diff HL
+ '(diff-hl-change ((default
+		    :inverse-video t
+		    :foreground "unspecified")))
+ '(diff-hl-delete ((default
+		    :inverse-video t
+		    :foreground "unspecified")))
+ '(diff-hl-insert ((default
+		    :inverse-video t
+		    :foreground "unspecified")))
+ '(diff-hl-reverted-hunk-highlight ((default
+				     :inverse-video t
+				     :foreground "unspecified"))))
 
 ;;; Variables
 (custom-theme-set-variables
@@ -162,6 +197,8 @@
  '(left-margin-width 2)
  '(right-margin-width 2)
  ;; '(cursor-type '(bar . 2))
- )
+ ;;;; Diff HL
+ '(diff-hl-fringe-bmp-function #'emaχ-diff-hl-bmp)
+ '(diff-hl-draw-borders nil))
 
 (provide-theme 'emaχ)
