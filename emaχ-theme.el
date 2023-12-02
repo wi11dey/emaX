@@ -1,12 +1,45 @@
 ;;; emaχ
 (deftheme emaχ
-  "Monochromatic theme inspired by TeX. Plays nice with colors from other themes.")
+  "Distraction-free, monochromatic theme inspired by TeX. Plays nice with other themes.")
 
-(require 'org-modern)
 (require 'olivetti)
+(autoload 'org-appear-mode "org-appear"
+  "A minor mode that automatically toggles elements in Org mode.
+
+This is a minor mode.  If called interactively, toggle the
+`Org-Appear mode' mode.  If the prefix argument is positive,
+enable the mode, and if it is zero or negative, disable the mode.
+
+If called from Lisp, toggle the mode if ARG is `toggle'.  Enable
+the mode if ARG is nil, omitted, or is a positive number.
+Disable the mode if ARG is a negative number.
+
+To check whether the minor mode is enabled in the current buffer,
+evaluate `org-appear-mode'.
+
+The mode's hook is called both when the mode is enabled and when
+it is disabled.
+
+\(fn &optional ARG)" t)
+(autoload 'org-modern-mode "org-modern"
+  "Modern looks for Org.
+
+This is a minor mode.  If called interactively, toggle the
+`Org-Modern mode' mode.  If the prefix argument is positive,
+enable the mode, and if it is zero or negative, disable the mode.
+
+If called from Lisp, toggle the mode if ARG is `toggle'.  Enable
+the mode if ARG is nil, omitted, or is a positive number.
+Disable the mode if ARG is a negative number.
+
+To check whether the minor mode is enabled in the current buffer,
+evaluate `org-modern-mode'.
+
+The mode's hook is called both when the mode is enabled and when
+it is disabled." t)
 
 (define-fringe-bitmap 'emaχ-diff-hl
-  (make-vector 1 #b11000000)
+  (make-vector 1 #b00000011)
   nil nil
   '(top :periodic))
 (define-fringe-bitmap 'emaχ-diff-hl-delete
@@ -26,6 +59,18 @@
   olivetti-mode
   turn-on-olivetti-mode
   :predicate '(not exwm-mode))
+
+(define-global-minor-mode global-org-appear-mode
+  org-appear-mode
+  org-appear-mode
+  :predicate '(org-mode))
+
+;; Not using the one included with org-modern so that org-modern (which in turn, loads org) doesn't have to be loaded when the theme loads:
+(define-global-minor-mode emaχ-global-org-modern-mode
+  org-modern-mode
+  org-modern-mode
+  :group 'org-modern
+  :predicate '(org-mode))
 
 ;;; Faces
 (custom-theme-set-faces
@@ -87,6 +132,11 @@
  '(outline-minor-0 ((default
 		     :inherit nil)))
 
+ ;;;; Org
+ ;; TODO: Need to fix variable-pitch indentation to get rid of this:
+ '(org-block ((default
+	       :family "NewComputerModernMono10")))
+
  ;;;; Mode line
  '(header-line ((default
 		 :foreground "unspecified"
@@ -138,6 +188,8 @@
  '(font-lock-constant-face ((default
 			     :foreground "unspecified"
 			     :inherit default)))
+ '(font-lock-warning-face ((default
+			    :inherit bold)))
 
  ;;;; Parentheses
  '(show-paren-match ((default
@@ -187,7 +239,7 @@
  'emaχ
  '(ivy-count-format "")
  '(prettify-symbols-alist
-   ;; TODO: These should be font-lock-keywords, either to match within symbols or to set the font to NewComputerModernMath.
+   ;; TODO: These should be font-lock-keywords, either to match within symbols or to set the font to NewComputerModernMath:
    '(("<=" . ?⩽)
      (">=" . ?⩾)
      ("==" . ?≡)
@@ -204,16 +256,24 @@
  '(dired-async-message-function #'message)
  '(transient-align-variable-pitch t)
  '(indicate-empty-lines nil)
- ;;;; Margin
- ;; The following are minimums:
- '(left-margin-width 2)
- '(right-margin-width 2)
  ;; '(cursor-type '(bar . 2))
  ;;;; Diff HL
  '(diff-hl-fringe-bmp-function #'emaχ-diff-hl-bmp)
  '(diff-hl-draw-borders nil)
- ;;;; Org Modern
+ ;;;; Org
+ '(org-hide-emphasis-markers t)
+ '(org-link-descriptive t)
+ '(org-pretty-entities)
+ ;;;;; Modern
  '(global-org-modern-mode t)
+ ;;;;; Appear
+ '(global-org-appear-mode t)
+ '(org-appear-autoemphasis t)
+ '(org-appear-autolinks t)
+ '(org-appear-autosubmarkers t)
+ '(org-appear-autoentities t)
+ '(org-appear-autokeywords t)
+ '(org-appear-inside-latex t)
  ;;;; Pixel Scroll Precision
  '(pixel-scroll-precision-mode t))
 
