@@ -123,7 +123,6 @@ it is disabled." t)
 					:inherit nil)))
  '(outline-1 ((default
 	       :height 1.25
-	       :family "Latin Modern Roman"
 	       :weight thin
 	       :inherit outline-2)))
  '(outline-2 ((default
@@ -145,6 +144,7 @@ it is disabled." t)
  '(outline-7 ((default
 	       :inherit outline-8)))
  '(outline-8 ((default
+	       :family "Latin Modern Roman"
 	       :inherit bold)))
  '(outline-minor-0 ((default
 		     :inherit nil)))
@@ -167,6 +167,13 @@ it is disabled." t)
  ;;;; Help
  '(help-key-binding ((default
 		      :inherit minibuffer-prompt)))
+
+ ;;;; Dired
+ ;;;;; DiredFL
+ '(diredfl-dir-heading ((default
+			 :inherit outline-8)))
+ '(diredfl-no-priv ((default
+		     :inherit org-hide)))
 
  ;;;; Minibuffer
  '(minibuffer-prompt ((default
@@ -225,13 +232,16 @@ it is disabled." t)
  ;;;; Magit
  '(magit-section-heading ((default
 			   :foreground unspecified
-			   :inherit outline-8)))
+			   :inherit (outline-8 variable-pitch))))
  '(magit-hash ((default
 		:foreground unspecified)))
  '(magit-branch-local ((default
 			:foreground unspecified)))
+ '(magit-diff-file-heading ((default
+			     :foreground unspecified)))
  '(git-commit-summary ((default
 			:foreground unspecified)))
+ ;;;;; Branches
 
  ;;;; Compilation
  '(compilation-warning ((default
@@ -263,6 +273,7 @@ it is disabled." t)
 ;;; Variables
 (custom-theme-set-variables
  'emaχ
+ '(dired-free-space nil)
  '(cursor-in-non-selected-windows nil)
  '(ivy-count-format "")
  '(prettify-symbols-alist
