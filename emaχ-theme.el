@@ -2,6 +2,9 @@
 (deftheme emaχ
   "Monochromatic theme inspired by TeX. Plays nice with colors from other themes.")
 
+(require 'org-modern)
+(require 'olivetti)
+
 (define-fringe-bitmap 'emaχ-diff-hl
   (make-vector 1 #b11000000)
   nil nil
@@ -14,6 +17,15 @@
   (if (eq type 'delete)
       'emaχ-diff-hl-delete
     'emaχ-diff-hl))
+
+(defun turn-on-olivetti-mode ()
+  (unless (minibufferp)
+    (olivetti-mode)))
+
+(define-global-minor-mode global-olivetti-mode
+  olivetti-mode
+  turn-on-olivetti-mode
+  :predicate '(not exwm-mode))
 
 ;;; Faces
 (custom-theme-set-faces
@@ -129,7 +141,7 @@
 
  ;;;; Parentheses
  '(show-paren-match ((default
-		      :background "unspecified"
+		      :background unspecified
 		      :inherit bold)))
  '(sp-pair-overlay-face ((default
 			  :inherit nil)))
@@ -199,6 +211,10 @@
  ;; '(cursor-type '(bar . 2))
  ;;;; Diff HL
  '(diff-hl-fringe-bmp-function #'emaχ-diff-hl-bmp)
- '(diff-hl-draw-borders nil))
+ '(diff-hl-draw-borders nil)
+ ;;;; Org Modern
+ '(global-org-modern-mode t)
+ ;;;; Pixel Scroll Precision
+ '(pixel-scroll-precision-mode t))
 
 (provide-theme 'emaχ)
