@@ -1,8 +1,21 @@
-;;; emaχ
+;;; emaχ-theme.el
 (deftheme emaχ
   "Distraction-free, monochromatic theme inspired by TeX. Plays nice with other themes.")
 
+;;; Modes
+;;;; Olivetti
 (require 'olivetti)
+(defun turn-on-olivetti-mode ()
+  (unless (minibufferp)
+    (olivetti-mode)))
+
+(define-global-minor-mode global-olivetti-mode
+  olivetti-mode
+  turn-on-olivetti-mode
+  :predicate '(not exwm-mode))
+
+;;;; Org
+;;;;; Appear
 (defvar org-appear-mode nil)
 (autoload 'org-appear-mode "org-appear"
   "A minor mode that automatically toggles elements in Org mode.
@@ -22,6 +35,13 @@ The mode's hook is called both when the mode is enabled and when
 it is disabled.
 
 \(fn &optional ARG)" t)
+
+(define-global-minor-mode global-org-appear-mode
+  org-appear-mode
+  org-appear-mode
+  :predicate '(org-mode))
+
+;;;;; Modern
 (defvar org-modern-mode nil)
 (autoload 'org-modern-mode "org-modern"
   "Modern looks for Org.
@@ -40,6 +60,19 @@ evaluate `org-modern-mode'.
 The mode's hook is called both when the mode is enabled and when
 it is disabled." t)
 
+;; Not using the one included with org-modern so that org-modern (which in turn, loads org) doesn't have to be loaded when the theme loads:
+(define-global-minor-mode emaχ-global-org-modern-mode
+  org-modern-mode
+  org-modern-mode
+  :group 'org-modern
+  :predicate '(org-mode))
+
+;;;; emaχ
+(define-minor-mode emaχ-mode
+  "Minor mode to enable ")
+
+;;; Fringe
+;;;; Diff HL
 (define-fringe-bitmap 'emaχ-diff-hl
   (make-vector 1 #b00000011)
   nil nil
@@ -53,27 +86,6 @@ it is disabled." t)
       'emaχ-diff-hl-delete
     'emaχ-diff-hl))
 
-(defun turn-on-olivetti-mode ()
-  (unless (minibufferp)
-    (olivetti-mode)))
-
-(define-global-minor-mode global-olivetti-mode
-  olivetti-mode
-  turn-on-olivetti-mode
-  :predicate '(not exwm-mode))
-
-(define-global-minor-mode global-org-appear-mode
-  org-appear-mode
-  org-appear-mode
-  :predicate '(org-mode))
-
-;; Not using the one included with org-modern so that org-modern (which in turn, loads org) doesn't have to be loaded when the theme loads:
-(define-global-minor-mode emaχ-global-org-modern-mode
-  org-modern-mode
-  org-modern-mode
-  :group 'org-modern
-  :predicate '(org-mode))
-
 ;;; Faces
 (custom-theme-set-faces
  'emaχ
@@ -86,9 +98,8 @@ it is disabled." t)
 	     ;; HiDPI:
 	     :height 170)))
  '(fixed-pitch ((default
-		 :family "NewComputerModernMono10"
-		 :weight regular
-		 :height 1.05)))
+		 :family "Latin Modern Mono"
+		 :weight regular)))
  '(success ((default
 	     :foreground unspecified)))
  '(cursor ((default
@@ -243,7 +254,11 @@ it is disabled." t)
 		    :foreground "unspecified")))
  '(diff-hl-reverted-hunk-highlight ((default
 				     :inverse-video t
-				     :foreground "unspecified"))))
+				     :foreground "unspecified")))
+
+ ;;;; Rec
+ '(rec-field-name-face ((default
+			 :inherit outline-8))))
 
 ;;; Variables
 (custom-theme-set-variables
@@ -292,3 +307,5 @@ it is disabled." t)
  '(pixel-scroll-precision-mode t))
 
 (provide-theme 'emaχ)
+
+;;; emaχ-theme.el ends here
