@@ -240,9 +240,25 @@ it is disabled." t)
 		     :inherit nil)))
 
  ;;;; Org
- ;; TODO: Need to fix variable-pitch indentation to get rid of this:
  '(org-document-title ((default
 			:inherit outline-1)))
+ '(org-level-1 ((default
+		 :inherit outline-2)))
+ '(org-level-2 ((default
+		 :inherit outline-3)))
+ '(org-level-3 ((default
+		 :inherit outline-4)))
+ '(org-level-4 ((default
+		 :inherit outline-5)))
+ '(org-level-5 ((default
+		 :inherit outline-6)))
+ '(org-level-6 ((default
+		 :inherit outline-7)))
+ '(org-level-7 ((default
+		 :inherit outline-8)))
+ '(org-level-8 ((default
+		 :inherit outline-7)))
+ ;; TODO: Need to fix variable-pitch indentation to get rid of this:
  '(org-block ((default
 	       :inherit fixed-pitch)))
 
@@ -431,6 +447,7 @@ it is disabled." t)
  '(org-pretty-entities t)
  '(org-hidden-keywords '(title))
  '(org-startup-indented nil)
+ '(org-n-level-faces 8)
  ;;;;; Modern
  '(emaχ-global-org-modern-mode t)
  '(org-modern-block-fringe 2)
