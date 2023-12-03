@@ -402,6 +402,7 @@ it is disabled." t)
 (custom-theme-set-variables
  'emaχ
  '(auto-dim-other-buffers-mode nil)
+ '(fringe-mode '(16 . 0))
  '(enable-theme-functions (cons #'emaχ--setup-fontset enable-theme-functions))
  '(indicate-buffer-boundaries nil)
  '(dired-free-space nil)
@@ -451,7 +452,7 @@ it is disabled." t)
  ;;;;; Modern
  '(emaχ-global-org-modern-mode t)
  '(org-modern-block-fringe 2)
- '(org-modern-hide-stars t)
+ '(org-modern-star '("§"))
  ;;;;; Appear
  '(global-org-appear-mode t)
  '(org-appear-autoemphasis t)
