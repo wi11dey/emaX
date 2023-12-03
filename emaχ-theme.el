@@ -25,7 +25,9 @@
 ;;; Code:
 
 (deftheme emaχ
-  "Distraction-free, monochromatic theme inspired by TeX. Plays nice with other themes.")
+  "Distraction-free, monochromatic theme inspired by TeX.
+
+Plays nice with other themes.")
 
 ;;; Modes
 ;;;; Olivetti
@@ -37,7 +39,8 @@
 (define-global-minor-mode global-olivetti-mode
   olivetti-mode
   turn-on-olivetti-mode
-  :predicate '(not exwm-mode))
+  :predicate '(not exwm-mode)
+  :group 'org-appear)
 
 ;;;; Org
 ;;;;; Appear
@@ -93,6 +96,40 @@ it is disabled." t)
   :predicate '(org-mode))
 
 ;;;; emaχ
+(defgroup emaχ nil
+  ""
+  :group 'faces)
+
+(defface emaχ-symbol
+  '((default
+     :family "NewComputerModernMath"))
+  "Face `emaχ-mode' should display symbols like ⩽")
+
+(defun emaχ-prettify-font-lock-keyword (original newchar)
+  `(,(format "\\(\\)")(concat (regexp-quote original) "+")
+    0
+    `( face default
+       display ,(make-string (/ (- (match-end 0) (match-beginning 0))
+				,(length original))
+			     ,newchar))))
+
+(defconst emaχ-font-lock-keywords
+  (list (emaχ-prettify-font-lock-keyword "ff" ?ﬀ)
+	(emaχ-prettify-font-lock-keyword "fi" ?ﬁ)
+	(emaχ-prettify-font-lock-keyword "fl" ?ﬂ)
+	(emaχ-prettify-font-lock-keyword "ffi" ?ﬃ)
+	(emaχ-prettify-font-lock-keyword "ffl" ?ﬄ)
+	(emaχ-prettify-font-lock-keyword "ae" ?æ)
+	(emaχ-prettify-font-lock-keyword "*" ?∗))
+  ;; '(("\\*+" 0 `(face default display ,(make-string (- (match-end 0) (match-beginning 0)) ?∗)))
+  ;;  ("(ff)+" 0 `(face default display ,(make-string (/ (- (match-end 0) (match-beginning 0)) 3) ?∗))))
+  )
+
+
+(font-lock-add-keywords nil emaχ-font-lock-keywords)
+(font-lock-remove-keywords nil emaχ-font-lock-keywords)
+(push font-lock-extra-managed-props 'display)
+
 (define-minor-mode emaχ-mode
   "Minor mode to enable ")
 
@@ -112,12 +149,24 @@ it is disabled." t)
     'emaχ-diff-hl))
 
 ;;; Faces
+(defconst emaχ-default-family "NewComputerModern10")
+;;;; Fontset
+(defun emaχ--setup-fontset (theme)
+  "Add fontset overrides for the emaχ theme when THEME is `emaχ' and the current fontset"
+  (when (eq theme 'emaχ)
+    (let ((fontset (face-attribute 'default :fontset)))
+      (when (string-match-p (concat emaχ-default-family ".*fontset-auto[[:digit:]]+$")
+			    (face-attribute 'default :fontset))
+	(set-fontset-font fontset 'symbol
+			  (font-spec :family "NewComputerModernMath")
+			  nil
+			  'prepend)))))
+
 (custom-theme-set-faces
  'emaχ
  ;;;; Base
- '(default ((default
-	     :family "NewComputerModern10"
-	     :weight book
+ `(default ((default
+	     :family ,emaχ-default-family
 	     :height 140)
 	    (((type mac))
 	     ;; HiDPI:
@@ -151,6 +200,7 @@ it is disabled." t)
  '(outline-1 ((default
 	       :height 1.25
 	       :weight thin
+	       :foreground unspecified
 	       :inherit outline-2)))
  '(outline-2 ((default
 	       :height 1.2
@@ -261,7 +311,8 @@ it is disabled." t)
 			   :foreground unspecified
 			   :inherit (outline-8 variable-pitch))))
  '(magit-hash ((default
-		:foreground unspecified)))
+		:foreground unspecified
+		:inherit fixed-pitch)))
  '(magit-branch-local ((default
 			:foreground unspecified)))
  '(magit-diff-file-heading ((default
@@ -321,24 +372,32 @@ it is disabled." t)
 ;;; Variables
 (custom-theme-set-variables
  'emaχ
+ '(enable-theme-functions (cons #'emaχ--setup-fontset enable-theme-functions))
  '(indicate-buffer-boundaries nil)
  '(dired-free-space nil)
  '(cursor-in-non-selected-windows nil)
  '(ivy-count-format "")
+ '(global-prettify-symbols-mode t)
  '(prettify-symbols-alist
-   ;; TODO: These should be font-lock-keywords, either to match within symbols or to set the font to NewComputerModernMath:
    '(("<=" . ?⩽)
      (">=" . ?⩾)
      ("==" . ?≡)
+     ("!=" . ?≠)
      ("===" . ?≣)
-     ("in" . ?∈)
-     ("ff" . ?ﬀ)
-     ("fi" . ?ﬁ)
-     ("fl" . ?ﬂ)
-     ("ffi" . ?ﬃ)
-     ("ffl" . ?ﬄ)
-     ("ae" . ?æ)
-     ("*" .  ?∗)))
+     ("!==" . ?≢)
+     ("&&" . ?∧)
+     ("||" . ?∨)
+     ("|>" . ?▷)
+     ("<|" . ?◁)
+     ("!" . ?¬)
+     ("::" . ?∷)
+     ("//" . ?⫽)
+     ("->" . ?→)
+     ("<-" . ?←)
+     ("=>" . ?⇒)
+     ("??" . ?⁇)
+     ("..." . ?⋯)
+     ("++". ?⧺)))
  '(mode-line-format nil)
  '(dired-async-message-function #'message)
  '(transient-align-variable-pitch t)
@@ -353,6 +412,7 @@ it is disabled." t)
  '(org-link-descriptive t)
  '(org-pretty-entities t)
  '(org-hidden-keywords '(title))
+ '(org-startup-indented nil)
  ;;;;; Modern
  '(emaχ-global-org-modern-mode t)
  ;;;;; Appear
