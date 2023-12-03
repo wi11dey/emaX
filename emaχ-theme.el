@@ -30,6 +30,10 @@
 Plays nice with other themes.")
 
 ;;; Modes
+;;;; Ligature
+;; TODO: Do this manually since we need to edit `composition-function-table' manually anyway for compositions like >>=, <=>, TeX, LaTeX, OPmac, &c.
+;; (require 'ligature)
+
 ;;;; Olivetti
 (require 'olivetti)
 (defun turn-on-olivetti-mode ()
@@ -100,13 +104,8 @@ it is disabled." t)
   ""
   :group 'faces)
 
-(defface emaχ-symbol
-  '((default
-     :family "NewComputerModernMath"))
-  "Face `emaχ-mode' should display symbols like ⩽")
-
 (defun emaχ-prettify-font-lock-keyword (original newchar)
-  `(,(format "\\(\\)")(concat (regexp-quote original) "+")
+  `(,(format "\\(%s\\)+" (regexp-quote original))
     0
     `( face default
        display ,(make-string (/ (- (match-end 0) (match-beginning 0))
@@ -114,24 +113,31 @@ it is disabled." t)
 			     ,newchar))))
 
 (defconst emaχ-font-lock-keywords
-  (list (emaχ-prettify-font-lock-keyword "ff" ?ﬀ)
-	(emaχ-prettify-font-lock-keyword "fi" ?ﬁ)
-	(emaχ-prettify-font-lock-keyword "fl" ?ﬂ)
-	(emaχ-prettify-font-lock-keyword "ffi" ?ﬃ)
-	(emaχ-prettify-font-lock-keyword "ffl" ?ﬄ)
-	(emaχ-prettify-font-lock-keyword "ae" ?æ)
-	(emaχ-prettify-font-lock-keyword "*" ?∗))
-  ;; '(("\\*+" 0 `(face default display ,(make-string (- (match-end 0) (match-beginning 0)) ?∗)))
-  ;;  ("(ff)+" 0 `(face default display ,(make-string (/ (- (match-end 0) (match-beginning 0)) 3) ?∗))))
-  )
+  ;; (list (emaχ-prettify-font-lock-keyword "ff" ?ﬀ)
+  ;;      (emaχ-prettify-font-lock-keyword "fi" ?ﬁ)
+  ;;      (emaχ-prettify-font-lock-keyword "fl" ?ﬂ)
+  ;;      (emaχ-prettify-font-lock-keyword "ffi" ?ﬃ)
+  ;;      (emaχ-prettify-font-lock-keyword "ffl" ?ﬄ)
+  ;;      (emaχ-prettify-font-lock-keyword )
+  ;;      (emaχ-prettify-font-lock-keyword "AE" ?Æ)
+  ;;      (emaχ-prettify-font-lock-keyword "*" ?∗)
+  ;;      (emaχ-prettify-font-lock-keyword "st" ?ﬆ)
+  ;;      '("^[ \t]+" 0 'fixed-pitch t append))
+  '(("^[ \t]+" 0 'fixed-pitch t append)))
 
-
-(font-lock-add-keywords nil emaχ-font-lock-keywords)
-(font-lock-remove-keywords nil emaχ-font-lock-keywords)
-(push font-lock-extra-managed-props 'display)
+(defcustom emaχ-ligatures
+  '("ff" "fi" "fl" "ffi" "ffl"
+    ;; ("ae" . ?æ) ("AE" . ?Æ) ("st" . ?ﬆ) ;; TODO: These must be shaped manually.
+    )
+  "List of ligatures to enable."
+  :type '(repeat string))
 
 (define-minor-mode emaχ-mode
-  "Minor mode to enable ")
+  "Minor mode to enable "
+  :lighter nil
+  (let (ligature-composition-table)
+    (ligature-set-ligatures t emaχ-ligatures)
+    (ligature-mode)))
 
 ;;; Fringe
 ;;;; Diff HL
@@ -156,8 +162,15 @@ it is disabled." t)
   (when (eq theme 'emaχ)
     (let ((fontset (face-attribute 'default :fontset)))
       (when (string-match-p (concat emaχ-default-family ".*fontset-auto[[:digit:]]+$")
-			    (face-attribute 'default :fontset))
-	(set-fontset-font fontset 'symbol
+                            (face-attribute 'default :fontset))
+        ;; Fallback font:
+        (set-fontset-font fontset
+			  'latin
+			  (font-spec :family "Latin Modern Roman" :weight 'regular)
+			  nil
+			  'append)
+        (set-fontset-font fontset
+			  'symbol
 			  (font-spec :family "NewComputerModernMath")
 			  nil
 			  'prepend)))))
@@ -372,11 +385,19 @@ it is disabled." t)
 ;;; Variables
 (custom-theme-set-variables
  'emaχ
+ '(auto-dim-other-buffers-mode nil)
  '(enable-theme-functions (cons #'emaχ--setup-fontset enable-theme-functions))
  '(indicate-buffer-boundaries nil)
  '(dired-free-space nil)
  '(cursor-in-non-selected-windows nil)
  '(ivy-count-format "")
+ '(mode-line-format nil)
+ '(dired-async-message-function #'message)
+ '(transient-align-variable-pitch t)
+ '(indicate-empty-lines nil)
+ ;; '(cursor-type '(bar . 2))
+ '(global-olivetti-mode t)
+ ;;;; Prettify symbols
  '(global-prettify-symbols-mode t)
  '(prettify-symbols-alist
    '(("<=" . ?⩽)
@@ -392,18 +413,15 @@ it is disabled." t)
      ("!" . ?¬)
      ("::" . ?∷)
      ("//" . ?⫽)
+     ("///" . ?⫻)
      ("->" . ?→)
      ("<-" . ?←)
      ("=>" . ?⇒)
      ("??" . ?⁇)
      ("..." . ?⋯)
-     ("++". ?⧺)))
- '(mode-line-format nil)
- '(dired-async-message-function #'message)
- '(transient-align-variable-pitch t)
- '(indicate-empty-lines nil)
- ;; '(cursor-type '(bar . 2))
- '(global-olivetti-mode t)
+     ("++". ?⧺)
+     ("--" . ?–)
+     ("---" . ?—)))
  ;;;; Diff HL
  '(diff-hl-fringe-bmp-function #'emaχ-diff-hl-bmp)
  '(diff-hl-draw-borders nil)
@@ -415,6 +433,8 @@ it is disabled." t)
  '(org-startup-indented nil)
  ;;;;; Modern
  '(emaχ-global-org-modern-mode t)
+ '(org-modern-block-fringe 2)
+ '(org-modern-hide-stars t)
  ;;;;; Appear
  '(global-org-appear-mode t)
  '(org-appear-autoemphasis t)
