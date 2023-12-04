@@ -418,6 +418,7 @@ it is disabled." t)
 ;;; Variables
 (custom-theme-set-variables
  'emaχ
+ '(x-underline-at-descent-line nil)
  '(auto-dim-other-buffers-mode nil)
  '(dired-subtree-use-backgrounds nil)
  '(fringe-mode '(16 . 0))
