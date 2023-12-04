@@ -31,7 +31,7 @@ Plays nice with other themes.")
 
 ;;; Modes
 ;;;; Ligature
-;; TODO: Do this manually since we need to edit `composition-function-table' manually anyway for compositions like >>=, <=>, TeX, LaTeX, OPmac, &c.
+;; TODO: Do this manually since we need to edit `composition-function-table' manually anyway for compositions like \\, \\\, >>=, <=>, >=>, TeX, LaTeX, OPmac, &c.
 ;; (require 'ligature)
 
 ;;;; Olivetti
@@ -258,6 +258,14 @@ it is disabled." t)
 		 :inherit outline-8)))
  '(org-level-8 ((default
 		 :inherit outline-7)))
+ '(org-quote ((default
+	       :inherit italic)))
+ '(org-verse ((default
+	       :inherit org-verse)))
+ '(org-drawer ((default
+		:height 0.9)))
+ '(org-property-value ((default
+			:inherit org-drawer)))
  ;; TODO: Need to fix variable-pitch indentation to get rid of this:
  '(org-block ((default
 	       :inherit fixed-pitch)))
@@ -275,11 +283,20 @@ it is disabled." t)
 		      :inherit minibuffer-prompt)))
 
  ;;;; Dired
+ ;;;;; Dired Subtree
+ '(dired-subtree-line-prefix "    ")
  ;;;;; DiredFL
  '(diredfl-dir-heading ((default
 			 :inherit outline-8)))
  '(diredfl-no-priv ((default
 		     :inherit org-hide)))
+ `(diredfl-file-name ((default
+		       ;; Override `fixed-pitch':
+		       :family ,emaχ-default-family)))
+ '(diredfl-dir-name ((default
+		      :inherit (underline diredfl-file-name))))
+ '(diredfl-date-time ((default
+		       :foreground unspecified)))
 
  ;;;; Minibuffer
  '(minibuffer-prompt ((default
@@ -402,6 +419,7 @@ it is disabled." t)
 (custom-theme-set-variables
  'emaχ
  '(auto-dim-other-buffers-mode nil)
+ '(dired-subtree-use-backgrounds nil)
  '(fringe-mode '(16 . 0))
  '(enable-theme-functions (cons #'emaχ--setup-fontset enable-theme-functions))
  '(indicate-buffer-boundaries nil)
@@ -443,12 +461,14 @@ it is disabled." t)
  '(diff-hl-fringe-bmp-function #'emaχ-diff-hl-bmp)
  '(diff-hl-draw-borders nil)
  ;;;; Org
+ '(org-startup-folded nil)
  '(org-hide-emphasis-markers t)
  '(org-link-descriptive t)
  '(org-pretty-entities t)
- '(org-hidden-keywords '(title))
+ '(org-hidden-keywords '(subtitle title))
  '(org-startup-indented nil)
  '(org-n-level-faces 8)
+ '(org-fontify-quote-and-verse-blocks t)
  ;;;;; Modern
  '(emaχ-global-org-modern-mode t)
  '(org-modern-block-fringe 2)
