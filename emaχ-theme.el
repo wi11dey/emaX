@@ -485,6 +485,11 @@ it is disabled." t)
  ;;;; Pixel Scroll Precision
  '(pixel-scroll-precision-mode t))
 
+;;;###autoload
+(when load-file-name
+  (add-to-list 'custom-theme-load-path
+               (file-name-as-directory (file-name-directory load-file-name))))
+
 (provide-theme 'emaχ)
 
 ;;; emaχ-theme.el ends here
