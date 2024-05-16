@@ -483,7 +483,7 @@ it is disabled." t)
  '(org-appear-autokeywords t)
  '(org-appear-inside-latex t)
  ;;;; Pixel Scroll Precision
- '(pixel-scroll-precision-mode t))
+ '(pixel-scroll-precision-mode (not (eq window-system 'mac))))
 
 ;;;###autoload
 (when load-file-name
