@@ -432,6 +432,7 @@ it is disabled." t)
  '(transient-align-variable-pitch t)
  '(indicate-empty-lines nil)
  ;; '(cursor-type '(bar . 2))
+ '(read-hide-char ?•)
  '(global-olivetti-mode t)
  ;;;; Prettify symbols
  '(global-prettify-symbols-mode t)
