@@ -1,4 +1,4 @@
-;;; emaχ-theme.el --- Distraction-free, monochromatic theme inspired by TeX -*- lexical-binding: t; -*-
+;;; emaχ-theme.el --- Minimalist, monochromatic theme inspired by TeX -*- lexical-binding: t; -*-
 
 ;; Author: Will Dey
 ;; Maintainer: Will Dey
@@ -25,9 +25,9 @@
 ;;; Code:
 
 (deftheme emaχ
-  "Distraction-free, monochromatic theme inspired by TeX.
+  "Minimalist, monochromatic theme inspired by TeX.
 
-Plays nice with other themes.")
+Plays nice with colors from other themes.")
 
 ;;; Modes
 ;;;; Ligature
