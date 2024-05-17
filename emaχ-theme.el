@@ -40,7 +40,7 @@ Plays nice with other themes.")
   (unless (minibufferp)
     (olivetti-mode)))
 
-(define-global-minor-mode global-olivetti-mode
+(define-globalized-minor-mode global-olivetti-mode
   olivetti-mode
   turn-on-olivetti-mode
   :predicate '(not exwm-mode)
