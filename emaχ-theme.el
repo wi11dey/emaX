@@ -484,7 +484,45 @@ it is disabled." t)
  '(org-appear-autokeywords t)
  '(org-appear-inside-latex t)
  ;;;; Pixel Scroll Precision
- '(pixel-scroll-precision-mode (not (eq window-system 'mac))))
+ '(pixel-scroll-precision-mode (not (eq window-system 'mac)))
+ ;;;; Outline Minor Mode
+ ;;;;; Emacs Lisp
+ `(emacs-lisp-mode-hook
+   (cons
+    ;; TODO: Move to named function for debuggability:
+    ,(lambda ()
+       (rx-let ((indent (0+ (any ?\s ?\t)))
+                (levels (and
+                         ?\;
+                         (group-n 3
+                           ?\;
+                           (group-n 1
+                             (1+ ?\;)))
+                         (not ?#))))
+         (setq-local
+          outline-regexp (rx indent levels)
+          outline-minor-faces-regexp (rx line-start
+                                         indent
+                                         (group-n 2
+                                           levels
+                                           (0+ not-newline)
+                                           (? ?\n)))
+          outline-minor-faces--font-lock-keywords `(
+                                                    (eval . `(,(outline-minor-faces--syntactic-matcher outline-minor-faces-regexp)
+                                                              (2 `(face ,(outline-minor-faces--get-face)) t)
+                                                              (3 `(face default invisible ,(list t)) t)))
+                                                    (,(rx "-*-" (0+ not-newline) "-*-") 0 'outline-minor-file-local-prop-line t))
+          outline-level (lambda ()
+                          (let ((match (match-string-no-properties 1)))
+                            (cond
+                             (match (length match))
+                             ((looking-at (rx ?\s (not blank))) 2)
+                             (t 1))))
+          font-lock-extra-managed-props (if (memq 'invisible font-lock-extra-managed-props)
+                                            font-lock-extra-managed-props
+                                          (cons 'invisible font-lock-extra-managed-props))))
+       (outline-minor-mode))
+    emacs-lisp-mode-hook)))
 
 ;;;###autoload
 (when load-file-name
