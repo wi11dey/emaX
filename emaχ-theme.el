@@ -459,6 +459,8 @@ it is disabled." t)
      ("++". ?⧺)
      ("--" . ?–)
      ("---" . ?—)))
+ '(lisp-prettify-symbols-alist (cons '("lambda"  . ?λ)
+				     (symbol-value 'prettify-symbols-alist)))
  ;;;; Diff HL
  '(diff-hl-fringe-bmp-function #'emaχ-diff-hl-bmp)
  '(diff-hl-draw-borders nil)
