@@ -35,64 +35,29 @@ Plays nice with colors from other themes.")
 ;; (require 'ligature)
 
 ;;;; Olivetti
-(require 'olivetti)
-(defun turn-on-olivetti-mode ()
-  (unless (minibufferp)
-    (olivetti-mode)))
-
+(defvar olivetti-mode nil)
+(autoload 'olivetti-mode "olivetti")
 (define-globalized-minor-mode global-olivetti-mode
   olivetti-mode
-  turn-on-olivetti-mode
+  (lambda ()
+    (unless (minibufferp)
+      (olivetti-mode)))
   :predicate '(not exwm-mode)
   :group 'org-appear)
 
 ;;;; Org
 ;;;;; Appear
 (defvar org-appear-mode nil)
-(autoload 'org-appear-mode "org-appear"
-  "A minor mode that automatically toggles elements in Org mode.
-
-This is a minor mode.  If called interactively, toggle the
-`Org-Appear mode' mode.  If the prefix argument is positive,
-enable the mode, and if it is zero or negative, disable the mode.
-
-If called from Lisp, toggle the mode if ARG is `toggle'.  Enable
-the mode if ARG is nil, omitted, or is a positive number.
-Disable the mode if ARG is a negative number.
-
-To check whether the minor mode is enabled in the current buffer,
-evaluate `org-appear-mode'.
-
-The mode's hook is called both when the mode is enabled and when
-it is disabled.
-
-\(fn &optional ARG)" t)
-
+(autoload 'org-appear-mode "org-appear")
 (define-global-minor-mode global-org-appear-mode
   org-appear-mode
   org-appear-mode
   :predicate '(org-mode))
 
 ;;;;; Modern
+;; Not using the one included with org-modern so that `org-modern' (which in turn loads `org') doesn't have to be loaded when the theme loads:
 (defvar org-modern-mode nil)
-(autoload 'org-modern-mode "org-modern"
-  "Modern looks for Org.
-
-This is a minor mode.  If called interactively, toggle the
-`Org-Modern mode' mode.  If the prefix argument is positive,
-enable the mode, and if it is zero or negative, disable the mode.
-
-If called from Lisp, toggle the mode if ARG is `toggle'.  Enable
-the mode if ARG is nil, omitted, or is a positive number.
-Disable the mode if ARG is a negative number.
-
-To check whether the minor mode is enabled in the current buffer,
-evaluate `org-modern-mode'.
-
-The mode's hook is called both when the mode is enabled and when
-it is disabled." t)
-
-;; Not using the one included with org-modern so that org-modern (which in turn, loads org) doesn't have to be loaded when the theme loads:
+(autoload 'org-modern-mode "org-modern")
 (define-global-minor-mode emaχ-global-org-modern-mode
   org-modern-mode
   org-modern-mode
