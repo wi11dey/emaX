@@ -191,8 +191,7 @@ Headings are comments with more than 2 starting semicolons. Their levels are det
   "Add fontset overrides for the emaχ theme when THEME is `emaχ' and the current fontset"
   (when (eq theme 'emaχ)
     (let ((fontset (face-attribute 'default :fontset)))
-      (when (string-match-p (concat emaχ-default-family ".*fontset-auto[[:digit:]]+$")
-                            (face-attribute 'default :fontset))
+      (when (string-match-p (concat emaχ-default-family ".*fontset-auto[[:digit:]]+$") fontset)
         ;; Fallback font:
         (set-fontset-font fontset
                           'latin
