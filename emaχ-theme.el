@@ -48,16 +48,17 @@ Plays nice with colors from other themes.")
 ;;;;; Appear
 (defvar org-appear-mode nil)
 (autoload 'org-appear-mode "org-appear")
-(define-global-minor-mode global-org-appear-mode
+(define-globalized-minor-mode global-org-appear-mode
   org-appear-mode
   org-appear-mode
+  :group 'org-appear
   :predicate '(org-mode))
 
 ;;;;; Modern
-;; Not using the one included with org-modern so that `org-modern' (which in turn loads `org') doesn't have to be loaded when the theme loads:
+;; Not using the one included with `org-modern' so that it doesn't have to be loaded when the theme loads (and in turn doesn't have to load `org'):
 (defvar org-modern-mode nil)
 (autoload 'org-modern-mode "org-modern")
-(define-global-minor-mode emaχ-global-org-modern-mode
+(define-globalized-minor-mode emaχ-global-org-modern-mode
   org-modern-mode
   org-modern-mode
   :group 'org-modern
