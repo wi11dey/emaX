@@ -301,13 +301,16 @@ Headings are comments with more than 2 starting semicolons. Their levels are det
                  :foreground unspecified
                  :background unspecified
                  :underline t)))
- '(mode-line ((default
+ '(mode-line (
+              (default
                :height 0.1
-               :foreground unspecified
-               :background unspecified
-               :box (:line-width 2)
-               :inherit magit-diff-lines-boundary ; or (vertical-border child-frame-border)
-               )))
+               :box (:line-width 2))
+              (((background light))
+               :foreground "black"
+               :background "black")
+              (((background dark))
+               :foreground "white"
+               :background "white")))
  '(mode-line-inactive ((default
                         :foreground unspecified
                         :background unspecified
@@ -368,8 +371,7 @@ Headings are comments with more than 2 starting semicolons. Their levels are det
  '(font-lock-variable-name-face ((default
                                   :foreground unspecified)))
  '(font-lock-type-face ((default
-                         :foreground unspecified
-                         :inherit bold)))
+                         :foreground unspecified)))
  '(font-lock-comment-face ((default
                             :foreground unspecified
                             :inherit italic)))
