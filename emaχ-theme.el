@@ -292,6 +292,9 @@ Headings are comments with more than 2 starting semicolons. Their levels are det
  ;; TODO: Need to fix variable-pitch indentation to get rid of this:
  '(org-block ((default
 	       :inherit fixed-pitch)))
+ ;;;;; Modern
+ '(org-modern-label ((default
+                      :family "NewComputerModernSans10")))
 
  ;;;; Mode line
  '(header-line ((default
