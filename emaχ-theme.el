@@ -63,6 +63,13 @@ Plays nice with colors from other themes.")
   :group 'org-modern
   :predicate '(org-mode))
 
+;;;; Prettify Symbols
+(define-globalized-minor-mode emaχ-global-prettify-symbols-mode
+  prettify-symbols-mode
+  prettify-symbols-mode
+  :group 'prog-mode
+  :predicate '(prog-mode (not haskell-mode)))
+
 ;;;; Outline Minor Mode
 ;;;;; Lisp
 (autoload 'outline-minor-faces--syntactic-matcher "outline-minor-faces")
@@ -493,9 +500,9 @@ Headings are comments with more than 2 starting semicolons. Their levels are det
  '(read-hide-char ?•)
  ;;;; Olivetti
  '(global-olivetti-mode t)
- ;;;; Prettify symbols
- '(global-prettify-symbols-mode t)
  '(olivetti-body-width 90)
+ ;;;; Prettify Symbols
+ '(emaχ-global-prettify-symbols-mode t)
  '(prettify-symbols-alist
    '(("<=" . ?⩽)
      (">=" . ?⩾)
