@@ -66,6 +66,7 @@ Plays nice with colors from other themes.")
 
 ;;;; Outline Minor Mode
 ;;;;; Lisp
+(autoload 'outline-minor-faces--syntactic-matcher "outline-minor-faces")
 (defun emaχ-lisp-outline-minor-mode-indent-level ()
   (let ((match (match-string-no-properties 1)))
     (cond
