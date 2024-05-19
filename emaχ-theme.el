@@ -367,6 +367,8 @@ Headings are comments with more than 2 starting semicolons. Their levels are det
                              :inherit default)))
  '(font-lock-warning-face ((default
                             :inherit bold)))
+ '(font-lock-preprocessor-face ((default
+                                 :foreground unspecified)))
 
  ;;;; Parentheses
  '(show-paren-match ((default
