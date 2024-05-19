@@ -132,8 +132,8 @@ Headings are comments with more than 2 starting semicolons. Their levels are det
     0
     `( face default
        display ,(make-string (/ (- (match-end 0) (match-beginning 0))
-				,(length original))
-			     ,newchar))))
+                                ,(length original))
+                             ,newchar))))
 
 (defconst emaχ-font-lock-keywords
   ;; (list (emaχ-prettify-font-lock-keyword "ff" ?ﬀ)
@@ -188,260 +188,262 @@ Headings are comments with more than 2 starting semicolons. Their levels are det
                             (face-attribute 'default :fontset))
         ;; Fallback font:
         (set-fontset-font fontset
-			  'latin
-			  (font-spec :family "Latin Modern Roman" :weight 'regular)
-			  nil
-			  'append)
+                          'latin
+                          (font-spec :family "Latin Modern Roman" :weight 'regular)
+                          nil
+                          'append)
         (set-fontset-font fontset
-			  'symbol
-			  (font-spec :family "NewComputerModernMath")
-			  nil
-			  'prepend)))))
+                          'symbol
+                          (font-spec :family "NewComputerModernMath")
+                          nil
+                          'prepend)))))
 
 (custom-theme-set-faces
  'emaχ
  ;;;; Base
  `(default ((default
-	     :family ,emaχ-default-family
-	     :height 140)
-	    (((type mac))
-	     ;; HiDPI:
-	     :height 170)))
+             :family ,emaχ-default-family
+             :height 140)
+            (((type mac))
+             ;; HiDPI:
+             :height 170)))
  '(cursor ((((background light))
-	    :background "black")
-	   (((background dark))
-	    :background "white")))
+            :background "black")
+           (((background dark))
+            :background "white")))
  '(fixed-pitch ((default
-		 :family "Latin Modern Mono"
-		 :weight regular)))
+                 :family "Latin Modern Mono"
+                 :weight regular)))
  '(success ((default
-	     :foreground unspecified)))
+             :foreground unspecified)))
  '(fringe ((default
-	    :background unspecified)))
+            :background unspecified)))
  '(variable-pitch ((default
-		    :family unspecified)))
+                    :family unspecified)))
  '(button ((default
-	    :foreground unspecified
-	    :underline t)))
+            :foreground unspecified
+            :underline t)))
  '(link ((default
-	  :foreground unspecified
-	  :underline t)))
+          :foreground unspecified
+          :underline t)))
  '(custom-button ((default
-		   :box (:line-width (1 . 1) :color "black" :style released-button)
-		   :inherit nil)))
+                   :box (:line-width (1 . 1) :color "black" :style released-button)
+                   :inherit nil)))
 
   ;;;; Headings
  '(outline-minor-file-local-prop-line ((default
-					:inherit nil)))
+                                        :inherit nil)))
  '(outline-1 ((default
-	       :height 1.25
-	       :weight thin
-	       :foreground unspecified
-	       :inherit outline-2)))
+               :height 1.25
+               :weight thin
+               :foreground unspecified
+               :inherit outline-2)))
  '(outline-2 ((default
-	       :height 1.2
-	       :inherit outline-3)))
+               :height 1.2
+               :inherit outline-3)))
  '(outline-3 ((default
-	       :slant normal
-	       :inherit outline-4)))
+               :slant normal
+               :inherit outline-4)))
  '(outline-4 ((default
-	       :height 1.2
-	       :slant italic
-	       :inherit outline-5)))
+               :height 1.2
+               :slant italic
+               :inherit outline-5)))
  '(outline-5 ((default
-	       :slant normal
-	       :inherit outline-6)))
+               :slant normal
+               :inherit outline-6)))
  '(outline-6 ((default
-	       :slant italic
-	       :inherit outline-7)))
+               :slant italic
+               :inherit outline-7)))
  '(outline-7 ((default
-	       :inherit outline-8)))
+               :inherit outline-8)))
  '(outline-8 ((default
-	       :family "Latin Modern Roman"
-	       :inherit bold)))
+               :family "Latin Modern Roman"
+               :inherit bold)))
  '(outline-minor-0 ((default
-		     :inherit nil)))
+                     :inherit nil)))
 
  ;;;; Org
  '(org-document-title ((default
-			:inherit outline-1)))
+                        :inherit outline-1)))
  '(org-level-1 ((default
-		 :inherit outline-2)))
+                 :inherit outline-2)))
  '(org-level-2 ((default
-		 :inherit outline-3)))
+                 :inherit outline-3)))
  '(org-level-3 ((default
-		 :inherit outline-4)))
+                 :inherit outline-4)))
  '(org-level-4 ((default
-		 :inherit outline-5)))
+                 :inherit outline-5)))
  '(org-level-5 ((default
-		 :inherit outline-6)))
+                 :inherit outline-6)))
  '(org-level-6 ((default
-		 :inherit outline-7)))
+                 :inherit outline-7)))
  '(org-level-7 ((default
-		 :inherit outline-8)))
+                 :inherit outline-8)))
  '(org-level-8 ((default
-		 :inherit outline-7)))
+                 :inherit outline-7)))
  '(org-quote ((default
-	       :inherit italic)))
+               :inherit italic)))
  '(org-verse ((default
-	       :inherit org-verse)))
+               :inherit org-verse)))
  '(org-drawer ((default
-		:height 0.9)))
+                :height 0.9)))
  '(org-property-value ((default
-			:inherit org-drawer)))
+                        :inherit org-drawer)))
  ;; TODO: Need to fix variable-pitch indentation to get rid of this:
  '(org-block ((default
-	       :inherit fixed-pitch)))
+               :inherit fixed-pitch)))
  ;;;;; Modern
  '(org-modern-label ((default
                       :family "NewComputerModernSans10")))
 
  ;;;; Mode line
  '(header-line ((default
-		 :foreground unspecified
-		 :background unspecified
-		 :underline t)))
+                 :foreground unspecified
+                 :background unspecified
+                 :underline t)))
  '(mode-line ((default :inherit default)))
  '(minibuffer-line ((default :inherit nil)))
 
  ;;;; Help
  '(help-key-binding ((default
-		      :inherit minibuffer-prompt)))
+                      :inherit minibuffer-prompt)))
 
  ;;;; Dired
  ;;;;; Dired Subtree
  '(dired-subtree-line-prefix "    ")
  ;;;;; DiredFL
  '(diredfl-dir-heading ((default
-			 :inherit outline-8)))
+                         :inherit outline-8)))
  '(diredfl-no-priv ((default
-		     :inherit org-hide)))
+                     :inherit org-hide)))
  `(diredfl-file-name ((default
-		       ;; Override `fixed-pitch':
-		       :family ,emaχ-default-family)))
+                       ;; Override `fixed-pitch':
+                       :family ,emaχ-default-family)))
  '(diredfl-dir-name ((default
-		      :inherit (underline diredfl-file-name))))
+                      :inherit (underline diredfl-file-name))))
  '(diredfl-date-time ((default
-		       :foreground unspecified)))
+                       :foreground unspecified)))
+
+ ;;;; Window Divider
 
  ;;;; Minibuffer
  '(minibuffer-prompt ((default
-		       :inherit bold)))
+                       :inherit bold)))
  ;;;;; Ivy
  '(ivy-current-match ((default
-		       :inherit underline)))
+                       :inherit underline)))
  '(ivy-minibuffer-match-face-1 ((default
-				 :inherit bold)))
+                                 :inherit bold)))
  '(ivy-minibuffer-match-face-2 ((default
-				 :inherit ivy-minibuffer-match-face-1)))
+                                 :inherit ivy-minibuffer-match-face-1)))
  '(ivy-minibuffer-match-face-3 ((default
-				 :inherit ivy-minibuffer-match-face-1)))
+                                 :inherit ivy-minibuffer-match-face-1)))
  '(ivy-minibuffer-match-face-4 ((default
-				 :inherit ivy-minibuffer-match-face-1)))
+                                 :inherit ivy-minibuffer-match-face-1)))
 
  ;;;; Font lock
  '(font-lock-keyword-face ((default
-			    :foreground unspecified)))
+                            :foreground unspecified)))
  '(font-lock-builtin-face ((default
-			    :foreground unspecified)))
+                            :foreground unspecified)))
  '(font-lock-function-name-face ((default
-				  :foreground unspecified)))
+                                  :foreground unspecified)))
  '(font-lock-variable-name-face ((default
-				  :foreground unspecified)))
+                                  :foreground unspecified)))
  '(font-lock-type-face ((default
-			 :foreground unspecified
-			 :inherit bold)))
+                         :foreground unspecified
+                         :inherit bold)))
  '(font-lock-comment-face ((default
-			    :foreground unspecified
-			    :inherit italic)))
+                            :foreground unspecified
+                            :inherit italic)))
  '(font-lock-string-face ((default
-			   :family "Latin Modern Roman Unslanted"
-			   :foreground unspecified)))
+                           :family "Latin Modern Roman Unslanted"
+                           :foreground unspecified)))
  '(font-lock-doc-face ((default
-			:foreground unspecified
-			:inherit font-lock-string-face)))
+                        :foreground unspecified
+                        :inherit font-lock-string-face)))
  '(font-lock-constant-face ((default
-			     :foreground unspecified
-			     :inherit default)))
+                             :foreground unspecified
+                             :inherit default)))
  '(font-lock-warning-face ((default
-			    :inherit bold)))
+                            :inherit bold)))
 
  ;;;; Parentheses
  '(show-paren-match ((default
-		      :background unspecified
-		      :inherit bold)))
+                      :background unspecified
+                      :inherit bold)))
  '(sp-pair-overlay-face ((default
-			  :inherit nil)))
+                          :inherit nil)))
 
  ;;;; Keys
  '(transient-key ((default
-		   :family "NewComputerModernMono10" ; Transient keys are never aligned, even with `transient-align-variable-pitch'.
-		   :foreground unspecified)))
+                   :family "NewComputerModernMono10" ; Transient keys are never aligned, even with `transient-align-variable-pitch'.
+                   :foreground unspecified)))
  '(modus-themes-key-binding ((default
                               :foreground unspecified)))
  
  ;;;; Magit
  '(magit-section-heading ((default
-			   :foreground unspecified
-			   :inherit (outline-8 variable-pitch))))
+                           :foreground unspecified
+                           :inherit (outline-8 variable-pitch))))
  '(magit-hash ((default
-		:foreground unspecified
-		:inherit fixed-pitch)))
+                :foreground unspecified
+                :inherit fixed-pitch)))
  '(magit-branch-local ((default
-			:foreground unspecified)))
+                        :foreground unspecified)))
  '(magit-diff-file-heading ((default
-			     :foreground unspecified)))
+                             :foreground unspecified)))
  '(magit-branch-remote ((default
-			 :foreground unspecified)))
+                         :foreground unspecified)))
  '(git-commit-summary ((default
-			:foreground unspecified)))
+                        :foreground unspecified)))
  ;;;;; Log
  '(magit-log-author ((default
-		      :foreground unspecified
-		      :inherit fixed-pitch)))
+                      :foreground unspecified
+                      :inherit fixed-pitch)))
  '(magit-log-date ((default
-		    :foreground unspecified
-		    :inherit fixed-pitch)))
+                    :foreground unspecified
+                    :inherit fixed-pitch)))
  '(magit-log-graph ((default
-		     :foreground unspecified
-		     :inherit (shadow fixed-pitch))))
+                     :foreground unspecified
+                     :inherit (shadow fixed-pitch))))
 
  ;;;; Compilation
  '(compilation-warning ((default
-			 :weight bold)))
+                         :weight bold)))
 
  ;;;; Eldoc
  '(eldoc-highlight-function-argument ((default
-				       :inherit bold)))
+                                       :inherit bold)))
 
  ;;;; Diff HL
  ;; The string "unspecified" here causes the face engine to use values from the `default' face, whereas the symbol `unspecified' will use face inheritance.
  '(diff-hl-change ((default
-		    :inverse-video t
-		    :foreground "unspecified")))
+                    :inverse-video t
+                    :foreground "unspecified")))
  '(diff-hl-delete ((default
-		    :inverse-video t
-		    :foreground "unspecified")))
+                    :inverse-video t
+                    :foreground "unspecified")))
  '(diff-hl-insert ((default
-		    :inverse-video t
-		    :foreground "unspecified")))
+                    :inverse-video t
+                    :foreground "unspecified")))
  '(diff-hl-reverted-hunk-highlight ((default
-				     :inverse-video t
-				     :foreground "unspecified")))
+                                     :inverse-video t
+                                     :foreground "unspecified")))
 
  ;;;; Rec
  '(rec-field-name-face ((default
-			 :inherit outline-8)))
+                         :inherit outline-8)))
 
  ;;;; Info
  '(Info-quoted ((default
-		 :inherit nit)))
+                 :inherit nit)))
 
  ;;;; Custom
  '(custom-variable-tag ((default
-			 :foreground unspecified)))
+                         :foreground unspecified)))
  '(custom-state ((default
-		  :foreground unspecified))))
+                  :foreground unspecified))))
 
 ;;; Variables
 (custom-theme-set-variables
@@ -488,7 +490,7 @@ Headings are comments with more than 2 starting semicolons. Their levels are det
      ("--" . ?–)
      ("---" . ?—)))
  '(lisp-prettify-symbols-alist (cons '("lambda"  . ?λ)
-				     (symbol-value 'prettify-symbols-alist)))
+                                     (symbol-value 'prettify-symbols-alist)))
  ;;;; Window Divider
  '(window-divider-default-places t)
  '(window-divider-default-right-width 1)
@@ -499,11 +501,11 @@ Headings are comments with more than 2 starting semicolons. Their levels are det
  '(diff-hl-draw-borders nil)
  ;;;; Org
  '(org-startup-folded nil)
+ '(org-startup-indented nil)
  '(org-hide-emphasis-markers t)
  '(org-link-descriptive t)
  '(org-pretty-entities t)
  '(org-hidden-keywords '(subtitle title))
- '(org-startup-indented nil)
  '(org-n-level-faces 8)
  '(org-fontify-quote-and-verse-blocks t)
  ;;;;; Modern
