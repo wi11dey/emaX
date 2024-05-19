@@ -4,7 +4,6 @@
 ;; Maintainer: Will Dey
 ;; Keywords: theme monochromatic tex
 ;; Version: 1.0.0
-;; Created: November 2018
 ;; Package-Requires: ((olivetti "2.0.5") (org-appear "0.3.0") (org-modern "0.10") (outline-minor-faces "1.0.0"))
 
 ;; This program is free software; you can redistribute it and/or modify
