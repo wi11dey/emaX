@@ -370,10 +370,12 @@ Headings are comments with more than 2 starting semicolons. Their levels are det
  '(sp-pair-overlay-face ((default
 			  :inherit nil)))
 
- ;;;; Transient
+ ;;;; Keys
  '(transient-key ((default
 		   :family "NewComputerModernMono10" ; Transient keys are never aligned, even with `transient-align-variable-pitch'.
 		   :foreground unspecified)))
+ '(modus-themes-key-binding ((default
+                              :foreground unspecified)))
  
  ;;;; Magit
  '(magit-section-heading ((default
