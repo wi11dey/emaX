@@ -391,6 +391,8 @@ Headings are comments with more than 2 starting semicolons. Their levels are det
  '(magit-hash ((default
                 :foreground unspecified
                 :inherit fixed-pitch)))
+ '(magit-filename ((default
+                    :foreground unspecified)))
  '(magit-branch-local ((default
                         :foreground unspecified)))
  '(magit-diff-file-heading ((default
@@ -399,6 +401,12 @@ Headings are comments with more than 2 starting semicolons. Their levels are det
                          :foreground unspecified)))
  '(git-commit-summary ((default
                         :foreground unspecified)))
+ '(git-commit-comment-branch-local ((default
+                                     :foreground unspecified)))
+ '(git-commit-comment-branch-remote ((default
+                                      :foreground unspecified)))
+ '(git-commit-comment-file ((default
+                             :foreground unspecified)))
  ;;;;; Log
  '(magit-log-author ((default
                       :foreground unspecified
