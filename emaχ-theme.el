@@ -321,7 +321,7 @@ Headings are comments with more than 2 starting semicolons. Their levels are det
  '(mode-line (
               (default
                :height 0.1
-               :box (:line-width 2))
+               :box (:line-width (2 . 2)))
               (((background light))
                :foreground "black"
                :background "black")
