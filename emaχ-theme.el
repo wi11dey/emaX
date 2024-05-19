@@ -340,9 +340,10 @@ Headings are comments with more than 2 starting semicolons. Their levels are det
                       :inherit minibuffer-prompt)))
 
  ;;;; Dired
- ;;;;; Dired Subtree
- '(dired-subtree-line-prefix "    ")
- ;;;;; DiredFL
+ ;;;;; Subtree
+ '(dired-subtree-line-prefix-face nil)
+ '(dired-subtree-use-backgrounds nil)
+ ;;;;; Font lock
  '(diredfl-dir-heading ((default
                          :inherit outline-8)))
  '(diredfl-no-priv ((default
@@ -497,10 +498,10 @@ Headings are comments with more than 2 starting semicolons. Their levels are det
 (custom-theme-set-variables
  'emaχ
  '(x-underline-at-descent-line nil)
- '(auto-dim-other-buffers-mode nil)
- '(dired-subtree-use-backgrounds nil)
  '(fringe-mode '(16 . 0))
- '(enable-theme-functions (cons #'emaχ--setup-fontset enable-theme-functions))
+ '(enable-theme-functions (if (memq #'emaχ--setup-fontset enable-theme-functions)
+                              enable-theme-functions
+                            (cons #'emaχ--setup-fontset enable-theme-functions)))
  '(indicate-buffer-boundaries nil)
  '(dired-free-space nil)
  '(cursor-in-non-selected-windows nil)
