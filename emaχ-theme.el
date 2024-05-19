@@ -269,6 +269,16 @@ Headings are comments with more than 2 starting semicolons. Their levels are det
  '(outline-minor-0 ((default
                      :inherit nil)))
 
+ ;;;; Info
+ '(info-title-1 ((default
+                  :inherit outline-1)))
+ '(info-title-2 ((default
+                  :inherit outline-2)))
+ '(info-title-3 ((default
+                  :inherit outline-3)))
+ '(info-title-4 ((default
+                  :inherit outline-4)))
+
  ;;;; Org
  '(org-document-title ((default
                         :inherit outline-1)))
