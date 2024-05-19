@@ -305,9 +305,8 @@ Headings are comments with more than 2 starting semicolons. Their levels are det
                :height 0.1
                :foreground unspecified
                :background unspecified
-               :inverse-video t
                :box (:line-width 2)
-               :inherit company-tooltip-scrollbar-thumb ; or (vertical-border child-frame-border)
+               :inherit magit-diff-lines-boundary ; or (vertical-border child-frame-border)
                )))
  '(mode-line-inactive ((default
                         :foreground unspecified
