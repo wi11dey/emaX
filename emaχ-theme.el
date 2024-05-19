@@ -237,7 +237,7 @@ Headings are comments with more than 2 starting semicolons. Their levels are det
                    :box (:line-width (1 . 1) :color "black" :style released-button)
                    :inherit nil)))
 
-  ;;;; Headings
+;;;; Headings
  '(outline-minor-file-local-prop-line ((default
                                         :inherit nil)))
  '(outline-1 ((default
