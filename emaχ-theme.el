@@ -369,6 +369,8 @@ Headings are comments with more than 2 starting semicolons. Their levels are det
  ;;;;; Ivy
  '(ivy-current-match ((default
                        :inherit underline)))
+ '(ivy-highlight-face ((default
+                        :inherit nil)))
  '(ivy-minibuffer-match-face-1 ((default
                                  :inherit bold)))
  '(ivy-minibuffer-match-face-2 ((default
