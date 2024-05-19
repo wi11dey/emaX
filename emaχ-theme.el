@@ -5,7 +5,7 @@
 ;; Keywords: theme monochromatic tex
 ;; Version: 1.0.0
 ;; Created: November 2018
-;; Package-Requires: ((olivetti "2.0.5") (org-appear "0.3.0") (org-modern "0.10"))
+;; Package-Requires: ((olivetti "2.0.5") (org-appear "0.3.0") (org-modern "0.10") (outline-minor-faces "1.0.0"))
 
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -78,41 +78,42 @@ Plays nice with colors from other themes.")
 
 Headings are comments with more than 2 starting semicolons. Their levels are determined by `emaχ-lisp-outline-minor-mode-indent-level', which see."
   :lighter nil
-  ;;;;;; Teardown
-  (mapc #'kill-local-variable
-        '(outline-regexp
-          outline-minor-faces-regexp
-          outline-minor-faces--font-lock-keywords
-          outline-level))
-  ;;;;;; Construction
-  (when emaχ-lisp-outline-minor-mode
-    (rx-let (
-             (indent (0+ (any ?\s ?\t)))
-             (levels (and
-                      ?\;
-                      (group-n 3
+  (if emaχ-lisp-outline-minor-mode
+      (rx-let (
+               (indent (0+ (any ?\s ?\t)))
+               (levels (and
                         ?\;
-                        (group-n 1
-                          (1+ ?\;)))
-                      (not ?#))))
-      (setq-local
-       outline-regexp (rx indent levels)
-       outline-minor-faces-regexp (rx line-start
-                                      indent
-                                      (group-n 2
-                                        levels
-                                        (0+ not-newline)
-                                        (? ?\n)))
-       outline-minor-faces--font-lock-keywords `(
-                                                 (eval . `(,(outline-minor-faces--syntactic-matcher outline-minor-faces-regexp)
-                                                           (2 `(face ,(outline-minor-faces--get-face)) t)
-                                                           (3 `(face default invisible ,(list t)) t)))
-                                                 (,(rx "-*-" (0+ not-newline) "-*-") 0 'outline-minor-file-local-prop-line t))
-       outline-level #'emaχ-lisp-outline-minor-mode-indent-level
-       font-lock-extra-managed-props (if (memq 'invisible font-lock-extra-managed-props)
-                                         font-lock-extra-managed-props
-                                       (cons 'invisible font-lock-extra-managed-props)))))
-  (outline-minor-mode (if emaχ-lisp-outline-minor-mode 1 -1)))
+                        (group-n 3
+                          ?\;
+                          (group-n 1
+                            (1+ ?\;)))
+                        (not ?#))))
+        (setq-local
+         outline-regexp (rx indent levels)
+         outline-minor-faces-regexp (rx line-start
+                                        indent
+                                        (group-n 2
+                                          levels
+                                          (0+ not-newline)
+                                          (? ?\n)))
+         outline-minor-faces--font-lock-keywords `(
+                                                   (eval . '(,(outline-minor-faces--syntactic-matcher outline-minor-faces-regexp)
+                                                             (2 `(face ,(outline-minor-faces--get-face)) t)
+                                                             (3 `(face default invisible ,(list t)) t)))
+                                                   (,(rx "-*-" (0+ not-newline) "-*-") 0 'outline-minor-file-local-prop-line t))
+         outline-level #'emaχ-lisp-outline-minor-mode-indent-level
+         font-lock-extra-managed-props (if (memq 'invisible font-lock-extra-managed-props)
+                                           font-lock-extra-managed-props
+                                         (cons 'invisible font-lock-extra-managed-props)))
+        (outline-minor-mode)
+        (outline-minor-faces-mode))
+    (outline-minor-mode -1)
+    (outline-minor-faces-mode -1)
+    (kill-local-variable 'outline-regexp)
+    (kill-local-variable 'outline-minor-faces-regexp)
+    (kill-local-variable 'outline-level)
+    (kill-local-variable 'outline-minor-faces--font-lock-keywords)
+    (font-lock-flush)))
 
 (define-globalized-minor-mode global-emaχ-lisp-outline-minor-mode
   emaχ-lisp-outline-minor-mode
@@ -515,42 +516,7 @@ Headings are comments with more than 2 starting semicolons. Their levels are det
  '(pixel-scroll-precision-mode (not (eq window-system 'mac)))
  ;;;; Outline Minor Mode
  ;;;;; Emacs Lisp
- `(emacs-lisp-mode-hook
-   (cons
-    ;; TODO: Move to named function for debuggability:
-    ,(lambda ()
-       (rx-let ((indent (0+ (any ?\s ?\t)))
-                (levels (and
-                         ?\;
-                         (group-n 3
-                           ?\;
-                           (group-n 1
-                             (1+ ?\;)))
-                         (not ?#))))
-         (setq-local
-          outline-regexp (rx indent levels)
-          outline-minor-faces-regexp (rx line-start
-                                         indent
-                                         (group-n 2
-                                           levels
-                                           (0+ not-newline)
-                                           (? ?\n)))
-          outline-minor-faces--font-lock-keywords `(
-                                                    (eval . `(,(outline-minor-faces--syntactic-matcher outline-minor-faces-regexp)
-                                                              (2 `(face ,(outline-minor-faces--get-face)) t)
-                                                              (3 `(face default invisible ,(list t)) t)))
-                                                    (,(rx "-*-" (0+ not-newline) "-*-") 0 'outline-minor-file-local-prop-line t))
-          outline-level (lambda ()
-                          (let ((match (match-string-no-properties 1)))
-                            (cond
-                             (match (length match))
-                             ((looking-at (rx ?\s (not blank))) 2)
-                             (t 1))))
-          font-lock-extra-managed-props (if (memq 'invisible font-lock-extra-managed-props)
-                                            font-lock-extra-managed-props
-                                          (cons 'invisible font-lock-extra-managed-props))))
-       (outline-minor-mode))
-    emacs-lisp-mode-hook)))
+ '(global-emaχ-lisp-outline-minor-mode t))
 
 ;;;###autoload
 (when load-file-name
