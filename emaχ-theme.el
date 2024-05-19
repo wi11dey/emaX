@@ -301,7 +301,19 @@ Headings are comments with more than 2 starting semicolons. Their levels are det
                  :foreground unspecified
                  :background unspecified
                  :underline t)))
- '(mode-line ((default :inherit default)))
+ '(mode-line ((default
+               :height 0.1
+               :foreground unspecified
+               :background unspecified
+               :inverse-video t
+               :box (:line-width 2)
+               :inherit company-tooltip-scrollbar-thumb ; or (vertical-border child-frame-border)
+               )))
+ '(mode-line-inactive ((default
+                        :foreground unspecified
+                        :background unspecified
+                        :box nil
+                        :inherit mode-line)))
  '(minibuffer-line ((default :inherit nil)))
 
  ;;;; Help
@@ -325,6 +337,12 @@ Headings are comments with more than 2 starting semicolons. Their levels are det
                        :foreground unspecified)))
 
  ;;;; Window Divider
+ '(window-divider ((default
+                    :foreground unspecified)))
+ '(window-divider-first-pixel ((default
+                                :inherit window-divider)))
+ '(window-divider-last-pixel ((default
+                               :inherit window-divider)))
 
  ;;;; Minibuffer
  '(minibuffer-prompt ((default
@@ -467,7 +485,7 @@ Headings are comments with more than 2 starting semicolons. Their levels are det
  '(dired-free-space nil)
  '(cursor-in-non-selected-windows nil)
  '(ivy-count-format "")
- '(mode-line-format nil)
+ '(mode-line-format " ")
  '(dired-async-message-function #'message)
  '(transient-align-variable-pitch t)
  '(indicate-empty-lines nil)
