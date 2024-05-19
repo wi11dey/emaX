@@ -165,11 +165,11 @@ Headings are comments with more than 2 starting semicolons. Their levels are det
 ;;; Fringe
 ;;;; Diff HL
 (define-fringe-bitmap 'emaχ-diff-hl
-  (make-vector 1 #b11000000)
+  (make-vector 1 #b10000000)
   nil nil
   '(top :periodic))
 (define-fringe-bitmap 'emaχ-diff-hl-delete
-  (make-vector 2 #b11111111)
+  (make-vector 1 #b11111111)
   nil nil
   'top)
 (defun emaχ-diff-hl-bmp (type _pos)
