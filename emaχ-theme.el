@@ -342,7 +342,7 @@ Headings are comments with more than 2 starting semicolons. Their levels are det
  ;;;;; Subtree
  '(dired-subtree-line-prefix-face nil)
  '(dired-subtree-use-backgrounds nil)
- ;;;;; Font lock
+ ;;;;; FL
  '(diredfl-dir-heading ((default
                          :inherit outline-8)))
  '(diredfl-no-priv ((default
@@ -380,7 +380,7 @@ Headings are comments with more than 2 starting semicolons. Their levels are det
  '(ivy-minibuffer-match-face-4 ((default
                                  :inherit ivy-minibuffer-match-face-1)))
 
- ;;;; Font lock
+ ;;;; Font Lock
  '(font-lock-keyword-face ((default
                             :foreground unspecified)))
  '(font-lock-builtin-face ((default
@@ -400,6 +400,8 @@ Headings are comments with more than 2 starting semicolons. Their levels are det
  '(font-lock-doc-face ((default
                         :foreground unspecified
                         :inherit font-lock-string-face)))
+ '(font-lock-doc-markup-face ((default
+                               :foreground unspecified)))
  '(font-lock-constant-face ((default
                              :foreground unspecified
                              :inherit default)))
