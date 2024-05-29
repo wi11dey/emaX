@@ -431,6 +431,8 @@ Headings are comments with more than 2 starting semicolons. Their levels are det
  '(magit-hash ((default
                 :foreground unspecified
                 :inherit fixed-pitch)))
+ '(magit-tag ((default
+               :foreground unspecified)))
  '(magit-filename ((default
                     :foreground unspecified)))
  '(magit-branch-local ((default
