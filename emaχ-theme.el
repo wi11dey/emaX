@@ -41,7 +41,7 @@ Plays nice with colors from other themes.")
   (lambda ()
     (unless (minibufferp)
       (olivetti-mode)))
-  :predicate '(not exwm-mode)
+  :predicate '(not exwm-mode xwidget-webkit-mode) ; TODO: Olivetti is still getting enabled in `xwidget-webkit-mode' for some reason.
   :group 'org-appear)
 
 ;;;; Org
