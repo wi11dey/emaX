@@ -414,6 +414,8 @@ Headings are comments with more than 2 starting semicolons. Their levels are det
                             :inherit bold)))
  '(font-lock-preprocessor-face ((default
                                  :foreground unspecified)))
+ '(font-lock-negation-char-face ((default
+                                  :inherit default)))
 
  ;;;; Parentheses
  '(show-paren-match ((default
