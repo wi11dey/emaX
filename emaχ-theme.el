@@ -283,6 +283,20 @@ Headings are comments with more than 2 starting semicolons. Their levels are det
  '(info-title-4 ((default
                   :inherit outline-4)))
 
+ ;;;; Markdown
+ '(markdown-header-face-1 ((default
+			    :inherit outline-1)))
+ '(markdown-header-face-2 ((default
+			    :inherit outline-2)))
+ '(markdown-header-face-3 ((default
+			    :inherit outline-3)))
+ '(markdown-header-face-4 ((default
+			    :inherit outline-4)))
+ '(markdown-header-face-5 ((default
+			    :inherit outline-5)))
+ '(markdown-header-face-6 ((default
+			    :inherit outline-6)))
+
  ;;;; Org
  '(org-document-title ((default
                         :inherit outline-1)))
