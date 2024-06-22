@@ -403,7 +403,8 @@ Headings are comments with more than 2 starting semicolons. Their levels are det
  '(font-lock-keyword-face ((default
                             :foreground unspecified)))
  '(font-lock-builtin-face ((default
-                            :foreground unspecified)))
+                            :foreground unspecified
+			    :inherit default)))
  '(font-lock-function-name-face ((default
                                   :foreground unspecified)))
  '(font-lock-variable-name-face ((default
@@ -536,6 +537,7 @@ Headings are comments with more than 2 starting semicolons. Their levels are det
  '(indicate-empty-lines nil)
  ;; '(cursor-type '(bar . 2))
  '(read-hide-char ?•)
+ '(modus-themes-bold-constructs t)
  ;;;; Olivetti
  '(global-olivetti-mode t)
  '(olivetti-body-width 90)
