@@ -404,7 +404,7 @@ Headings are comments with more than 2 starting semicolons. Their levels are det
                             :foreground unspecified)))
  '(font-lock-builtin-face ((default
                             :foreground unspecified
-			    :inherit default)))
+			    :inherit nil)))
  '(font-lock-function-name-face ((default
                                   :foreground unspecified)))
  '(font-lock-variable-name-face ((default
@@ -424,13 +424,13 @@ Headings are comments with more than 2 starting semicolons. Their levels are det
                                :foreground unspecified)))
  '(font-lock-constant-face ((default
                              :foreground unspecified
-                             :inherit default)))
+                             :inherit nil)))
  '(font-lock-warning-face ((default
                             :inherit bold)))
  '(font-lock-preprocessor-face ((default
                                  :foreground unspecified)))
  '(font-lock-negation-char-face ((default
-                                  :inherit default)))
+                                  :inherit nil)))
 
  ;;;; Parentheses
  '(show-paren-match ((default
@@ -609,5 +609,8 @@ Headings are comments with more than 2 starting semicolons. Their levels are det
                (file-name-as-directory (file-name-directory load-file-name))))
 
 (provide-theme 'emaχ)
+
+;; For testing only:
+(enable-theme 'emaχ)
 
 ;;; emaχ-theme.el ends here
