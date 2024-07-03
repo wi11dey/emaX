@@ -369,6 +369,8 @@ Headings are comments with more than 2 starting semicolons. Their levels are det
  `(diredfl-file-name ((default
                        ;; Override `fixed-pitch':
                        :family ,emaχ-default-family)))
+ `(diredfl-file-suffix ((default
+			 :inherit diredfl-file-name)))
  '(diredfl-dir-name ((default
                       :inherit (underline diredfl-file-name))))
  '(diredfl-date-time ((default
