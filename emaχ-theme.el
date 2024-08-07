@@ -296,6 +296,8 @@ Headings are comments with more than 2 starting semicolons. Their levels are det
 			    :inherit outline-5)))
  '(markdown-header-face-6 ((default
 			    :inherit outline-6)))
+ '(markdown-inline-code-face ((default
+                               :inherit markdown-code-face)))
 
  ;;;; Org
  '(org-document-title ((default
@@ -324,9 +326,8 @@ Headings are comments with more than 2 starting semicolons. Their levels are det
                 :height 0.9)))
  '(org-property-value ((default
                         :inherit org-drawer)))
- ;; TODO: Need to fix variable-pitch indentation to get rid of this:
- '(org-block ((default
-               :inherit fixed-pitch)))
+ '(org-code ((default
+              :inherit markdown-inline-code-face)))
  ;;;;; Modern
  '(org-modern-label ((default
                       :family "NewComputerModernSans10")))
