@@ -4,7 +4,7 @@
 ;; Maintainer: Will Dey
 ;; Keywords: theme monochromatic tex
 ;; Version: 1.0.0
-;; Package-Requires: ((olivetti "2.0.5") (org-appear "0.3.0") (org-modern "0.10") (outline-minor-faces "1.0.0"))
+;; Package-Requires: ((olivetti "2.0.5") (org-appear "0.3.0") (org-modern "1.2") (outline-minor-faces "1.0.0"))
 
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -590,7 +590,8 @@ Headings are comments with more than 2 starting semicolons. Their levels are det
  ;;;;; Modern
  '(emaχ-global-org-modern-mode t)
  '(org-modern-block-fringe 2)
- '(org-modern-star '("§"))
+ '(org-modern-star 'replace)
+ '(org-modern-replace-stars "§")
  ;;;;; Appear
  '(global-org-appear-mode t)
  '(org-appear-autoemphasis t)
@@ -611,8 +612,5 @@ Headings are comments with more than 2 starting semicolons. Their levels are det
                (file-name-as-directory (file-name-directory load-file-name))))
 
 (provide-theme 'emaχ)
-
-;; For testing only:
-(enable-theme 'emaχ)
 
 ;;; emaχ-theme.el ends here
