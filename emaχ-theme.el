@@ -541,7 +541,6 @@ Headings are comments with more than 2 starting semicolons. Their levels are det
  '(indicate-empty-lines nil)
  ;; '(cursor-type '(bar . 2))
  '(read-hide-char ?•)
- '(modus-themes-bold-constructs t)
  ;;;; Olivetti
  '(global-olivetti-mode t)
  '(olivetti-body-width 90)
