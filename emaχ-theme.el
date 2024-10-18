@@ -362,7 +362,7 @@ Headings are comments with more than 2 starting semicolons. Their levels are det
  ;;;;; Subtree
  '(dired-subtree-line-prefix-face nil)
  '(dired-subtree-use-backgrounds nil)
- ;;;;; FL
+ ;;;;; Font Lock
  '(diredfl-dir-heading ((default
                          :inherit outline-8)))
  '(diredfl-no-priv ((default
@@ -370,7 +370,7 @@ Headings are comments with more than 2 starting semicolons. Their levels are det
  `(diredfl-file-name ((default
                        ;; Override `fixed-pitch':
                        :family ,emaχ-default-family)))
- `(diredfl-file-suffix ((default
+ '(diredfl-file-suffix ((default
 			 :inherit diredfl-file-name)))
  '(diredfl-dir-name ((default
                       :inherit (underline diredfl-file-name))))
@@ -525,6 +525,7 @@ Headings are comments with more than 2 starting semicolons. Their levels are det
 ;;; Variables
 (custom-theme-set-variables
  'emaχ
+ '(line-spacing 0.1)
  '(x-underline-at-descent-line nil)
  '(fringe-mode '(16 . 0))
  '(enable-theme-functions (if (memq #'emaχ--setup-fontset enable-theme-functions)
