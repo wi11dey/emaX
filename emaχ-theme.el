@@ -268,6 +268,10 @@ Headings are comments with more than 2 starting semicolons. Their levels are det
  '(outline-minor-0 ((default
                      :inherit nil)))
 
+ ;;;; Search
+ '(modus-themes-search-current ((default
+                                 :underline (:position descent))))
+
  ;;;; Olivetti
  '(olivetti-fringe ((default
 		     :background unspecified
