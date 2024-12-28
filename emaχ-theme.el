@@ -209,7 +209,7 @@ Headings are comments with more than 2 starting semicolons. Their levels are det
  ;;;; Base
  `(default ((default
              :family ,emaχ-default-family
-             :height 140)
+             :height 130)
             (((type mac))
              ;; HiDPI:
              :height 170)))
