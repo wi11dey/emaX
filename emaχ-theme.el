@@ -1,10 +1,10 @@
 ;;; emaχ-theme.el --- Minimalist, monochromatic theme inspired by TeX -*- lexical-binding: t; -*-
 
-;; Author: Will Dey
-;; Maintainer: Will Dey
-;; Keywords: theme monochromatic tex
+;; Author: Will Dey <will_dey@alumni.harvard.edu>
+;; Maintainer: Will Dey <will_dey@alumni.harvard.edu>
+;; Keywords: theme, monochromatic, tex
 ;; Version: 1.0.0
-;; Package-Requires: ((olivetti "2.0.5") (org-appear "0.3.0") (org-modern "1.2") (outline-minor-faces "1.0.0"))
+;; Package-Requires: ((olivetti "2.0.7") (org-appear "0.3.0") (org-modern "1.2") (outline-minor-faces "1.0.0"))
 
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
