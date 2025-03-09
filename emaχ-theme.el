@@ -23,6 +23,9 @@
 
 ;;; Code:
 
+(eval-when-compile
+  (require 'cl-lib))
+
 (deftheme emaχ
   "Minimalist, monochromatic theme inspired by TeX.
 
@@ -186,6 +189,20 @@ Headings are comments with more than 2 starting semicolons. Their levels are det
 
 ;;; Faces
 (defconst emaχ-default-family "NewComputerModern10")
+
+(defmacro emaχ--nfaces (from to &rest spec)
+  (let* ((i (gensym "i")))
+    (list 'cl-loop
+          'for i 'from from 'to to
+          'collect (list '\` (named-let recurse ((form spec))
+                               (if (consp form)
+                                   (if (eq (car form) 'nface)
+                                       (list '\, `(intern (format "%s%d" ',(cadr form) ,i)))
+                                     (cons
+                                      (recurse (car form))
+                                      (recurse (cdr form))))
+                                 form))))))
+
 ;;;; Fontset
 (defun emaχ--setup-fontset (theme)
   "Add fontset overrides for the emaχ theme when THEME is `emaχ' and the current fontset"
@@ -204,327 +221,313 @@ Headings are comments with more than 2 starting semicolons. Their levels are det
                           nil
                           'prepend)))))
 
-(custom-theme-set-faces
+(apply
+ #'custom-theme-set-faces
  'emaχ
- ;;;; Base
- `(default ((default
-             :family ,emaχ-default-family
-             :height 140)
-            (((type mac))
-             ;; HiDPI:
-             :height 170)))
- '(cursor ((((background light))
-            :background "black")
-           (((background dark))
-            :background "white")))
- '(fixed-pitch ((default
-                 :family "Latin Modern Mono"
-                 :weight regular)))
- '(success ((default
-             :foreground unspecified)))
- '(fringe ((default
-            :background unspecified)))
- '(variable-pitch ((default
-                    :family unspecified)))
- '(button ((default
-            :foreground unspecified
-            :underline t)))
- '(link ((default
-          :foreground unspecified
-          :underline t)))
- '(custom-button ((default
-                   :box (:line-width (1 . 1) :color "black" :style released-button)
-                   :inherit nil)))
+ `(
+   ;;;; Base
+   (default ((default
+              :family ,emaχ-default-family
+              :height 140)
+             (((type mac))
+              ;; HiDPI:
+              :height 170)))
+   (cursor ((((background light))
+             :background "black")
+            (((background dark))
+             :background "white")))
+   (fixed-pitch ((default
+                  :family "Latin Modern Mono"
+                  :weight regular)))
+   (success ((default
+              :foreground unspecified)))
+   (fringe ((default
+             :background unspecified)))
+   (variable-pitch ((default
+                     :family unspecified)))
+   (button ((default
+             :foreground unspecified
+             :underline t)))
+   (link ((default
+           :foreground unspecified
+           :underline t)))
+   (custom-button ((default
+                    :box (:line-width (1 . 1) :color "black" :style released-button)
+                    :inherit nil)))
 
- ;;;; Headings
- '(outline-minor-file-local-prop-line ((default
-                                        :inherit nil)))
- '(outline-1 ((default
-               :height 1.25
-               :weight thin
-               :foreground unspecified
-               :inherit outline-2)))
- '(outline-2 ((default
-               :height 1.2
-               :inherit outline-3)))
- '(outline-3 ((default
-               :slant normal
-               :inherit outline-4)))
- '(outline-4 ((default
-               :height 1.2
-               :slant italic
-               :inherit outline-5)))
- '(outline-5 ((default
-               :slant normal
-               :inherit outline-6)))
- '(outline-6 ((default
-               :slant italic
-               :inherit outline-7)))
- '(outline-7 ((default
-               :inherit outline-8)))
- '(outline-8 ((default
-               :family "Latin Modern Roman"
-               :inherit bold)))
- '(outline-minor-0 ((default
-                     :inherit nil)))
-
- ;;;; Search
- '(modus-themes-search-current ((default
-                                 :underline (:position descent))))
-
- ;;;; Olivetti
- '(olivetti-fringe ((default
-		     :background unspecified
-		     :inherit fringe)))
-
- ;;;; Info
- '(info-title-1 ((default
-                  :inherit outline-1)))
- '(info-title-2 ((default
-                  :inherit outline-2)))
- '(info-title-3 ((default
-                  :inherit outline-3)))
- '(info-title-4 ((default
-                  :inherit outline-4)))
-
- ;;;; Markdown
- '(markdown-header-face-1 ((default
-			    :inherit outline-1)))
- '(markdown-header-face-2 ((default
-			    :inherit outline-2)))
- '(markdown-header-face-3 ((default
-			    :inherit outline-3)))
- '(markdown-header-face-4 ((default
-			    :inherit outline-4)))
- '(markdown-header-face-5 ((default
-			    :inherit outline-5)))
- '(markdown-header-face-6 ((default
-			    :inherit outline-6)))
- '(markdown-inline-code-face ((default
-                               :inherit markdown-code-face)))
-
- ;;;; Org
- '(org-document-title ((default
-                        :inherit outline-1)))
- '(org-level-1 ((default
-                 :inherit outline-2)))
- '(org-level-2 ((default
-                 :inherit outline-3)))
- '(org-level-3 ((default
-                 :inherit outline-4)))
- '(org-level-4 ((default
-                 :inherit outline-5)))
- '(org-level-5 ((default
-                 :inherit outline-6)))
- '(org-level-6 ((default
-                 :inherit outline-7)))
- '(org-level-7 ((default
-                 :inherit outline-8)))
- '(org-level-8 ((default
-                 :inherit outline-7)))
- '(org-quote ((default
-               :inherit italic)))
- '(org-verse ((default
-               :inherit org-verse)))
- '(org-drawer ((default
-                :height 0.9)))
- '(org-property-value ((default
-                        :inherit org-drawer)))
- '(org-code ((default
-              :inherit markdown-inline-code-face)))
- ;;;;; Modern
- '(org-modern-label ((default
-                      :family "NewComputerModernSans10")))
-
- ;;;; Mode line
- '(header-line ((default
-                 :foreground unspecified
-                 :background unspecified
-                 :underline t)))
- '(mode-line (
-              (default
-               :height 0.1
-               :box (:line-width (2 . 2)))
-              (((background light))
-               :foreground "black"
-               :background "black")
-              (((background dark))
-               :foreground "white"
-               :background "white")))
- '(mode-line-inactive ((default
-                        :foreground unspecified
-                        :background unspecified
-                        :box nil
-                        :inherit mode-line)))
- '(minibuffer-line ((default :inherit nil)))
-
- ;;;; Help
- '(help-key-binding ((default
-                      :inherit minibuffer-prompt)))
-
- ;;;; Dired
- ;;;;; Subtree
- '(dired-subtree-line-prefix-face nil)
- '(dired-subtree-use-backgrounds nil)
- ;;;;; Font Lock
- '(diredfl-dir-heading ((default
-                         :inherit outline-8)))
- '(diredfl-no-priv ((default
-                     :inherit org-hide)))
- `(diredfl-file-name ((default
-                       ;; Override `fixed-pitch':
-                       :family ,emaχ-default-family)))
- '(diredfl-file-suffix ((default
-			 :inherit diredfl-file-name)))
- '(diredfl-dir-name ((default
-                      :inherit (underline diredfl-file-name))))
- '(diredfl-date-time ((default
-                       :foreground unspecified)))
-
- ;;;; Window Divider
- '(window-divider ((default
-                    :foreground unspecified)))
- '(window-divider-first-pixel ((default
-                                :inherit window-divider)))
- '(window-divider-last-pixel ((default
-                               :inherit window-divider)))
-
- ;;;; Minibuffer
- '(minibuffer-prompt ((default
-                       :inherit bold)))
- ;;;;; Ivy
- '(ivy-current-match ((default
-                       :inherit underline)))
- '(ivy-highlight-face ((default
-                        :inherit nil)))
- '(ivy-minibuffer-match-face-1 ((default
-                                 :inherit bold)))
- '(ivy-minibuffer-match-face-2 ((default
-                                 :inherit ivy-minibuffer-match-face-1)))
- '(ivy-minibuffer-match-face-3 ((default
-                                 :inherit ivy-minibuffer-match-face-1)))
- '(ivy-minibuffer-match-face-4 ((default
-                                 :inherit ivy-minibuffer-match-face-1)))
-
- ;;;; Font Lock
- '(font-lock-keyword-face ((default
-                            :foreground unspecified)))
- '(font-lock-builtin-face ((default
-                            :foreground unspecified
-			    :inherit nil)))
- '(font-lock-function-name-face ((default
-                                  :foreground unspecified)))
- '(font-lock-variable-name-face ((default
-                                  :foreground unspecified)))
- '(font-lock-type-face ((default
-                         :foreground unspecified)))
- '(font-lock-comment-face ((default
-                            :foreground unspecified
-                            :inherit italic)))
- '(font-lock-string-face ((default
-                           :family "Latin Modern Roman Unslanted"
-                           :foreground unspecified)))
- '(font-lock-doc-face ((default
-                        :foreground unspecified
-                        :inherit font-lock-string-face)))
- '(font-lock-doc-markup-face ((default
-                               :foreground unspecified)))
- '(font-lock-constant-face ((default
-                             :foreground unspecified
-                             :inherit nil)))
- '(font-lock-warning-face ((default
-                            :inherit bold)))
- '(font-lock-preprocessor-face ((default
-                                 :foreground unspecified)))
- '(font-lock-negation-char-face ((default
-                                  :inherit nil)))
-
- ;;;; Parentheses
- '(show-paren-match ((default
-                      :background unspecified
-                      :inherit bold)))
- '(sp-pair-overlay-face ((default
-                          :inherit nil)))
-
- ;;;; Keys
- '(transient-key ((default
-                   :family "NewComputerModernMono10" ; Transient keys are never aligned, even with `transient-align-variable-pitch'.
-                   :foreground unspecified)))
- '(modus-themes-key-binding ((default
-                              :foreground unspecified)))
- 
- ;;;; Magit
- '(magit-section-heading ((default
-                           :foreground unspecified
-                           :inherit (outline-8 variable-pitch))))
- '(magit-hash ((default
+   ;;;; Headings
+   (outline-minor-file-local-prop-line ((default
+                                         :inherit nil)))
+   (outline-1 ((default
+                :height 1.25
+                :weight thin
                 :foreground unspecified
-                :inherit fixed-pitch)))
- '(magit-tag ((default
-               :foreground unspecified)))
- '(magit-filename ((default
+                :inherit outline-2)))
+   (outline-2 ((default
+                :height 1.2
+                :inherit outline-3)))
+   (outline-3 ((default
+                :slant normal
+                :inherit outline-4)))
+   (outline-4 ((default
+                :height 1.2
+                :slant italic
+                :inherit outline-5)))
+   (outline-5 ((default
+                :slant normal
+                :inherit outline-6)))
+   (outline-6 ((default
+                :slant italic
+                :inherit outline-7)))
+   (outline-7 ((default
+                :inherit outline-8)))
+   (outline-8 ((default
+                :family "Latin Modern Roman"
+                :inherit bold)))
+   (outline-minor-0 ((default
+                      :inherit nil)))
+
+   ;;;; Search
+   (modus-themes-search-current ((default
+                                  :underline (:position descent))))
+
+   ;;;; Olivetti
+   (olivetti-fringe ((default
+		      :background unspecified
+		      :inherit fringe)))
+
+   ;;;; Info
+   ,@(emaχ--nfaces 1 4
+                   (nface info-title-) ((default
+                                         :inherit (nface outline-))))
+
+   ;;;; Markdown
+   ,@(emaχ--nfaces 1 6
+                   (nface markdown-header-face-) ((default
+                                                   :inherit (nface outline-))))
+   (markdown-inline-code-face ((default
+                                :inherit markdown-code-face)))
+
+   ;;;; Org
+   (org-document-title ((default
+                         :inherit outline-1)))
+   (org-level-1 ((default
+                  :inherit outline-2)))
+   (org-level-2 ((default
+                  :inherit outline-3)))
+   (org-level-2 ((default
+                  :inherit outline-3)))
+   (org-quote ((default
+                :inherit italic)))
+   (org-verse ((default
+                :inherit org-verse)))
+   (org-drawer ((default
+                 :height 0.9)))
+   (org-property-value ((default
+                         :inherit org-drawer)))
+   (org-code ((default
+               :inherit markdown-inline-code-face)))
+   ;;;;; Modern
+   (org-modern-label ((default
+                       :family "NewComputerModernSans10"
+                       :height 0.9)))
+
+   ;;;; Mode line
+   (header-line ((default
+                  :foreground unspecified
+                  :background unspecified
+                  :underline t)))
+   (mode-line (
+               (default
+                :height 0.1
+                :box (:line-width (2 . 2)))
+               (((background light))
+                :foreground "black"
+                :background "black")
+               (((background dark))
+                :foreground "white"
+                :background "white")))
+   (mode-line-inactive ((default
+                         :foreground unspecified
+                         :background unspecified
+                         :box nil
+                         :inherit mode-line)))
+   (minibuffer-line ((default :inherit nil)))
+
+   ;;;; Help
+   (help-key-binding ((default
+                       :inherit minibuffer-prompt)))
+
+   ;;;; Dired
+   ;;;;; Subtree
+   (dired-subtree-line-prefix-face nil)
+   (dired-subtree-use-backgrounds nil)
+   ;;;;; Font Lock
+   (diredfl-dir-heading ((default
+                          :inherit outline-8)))
+   (diredfl-no-priv ((default
+                      :inherit org-hide)))
+   (diredfl-file-name ((default
+                        ;; Override `fixed-pitch':
+                        :family ,emaχ-default-family)))
+   (diredfl-file-suffix ((default
+			  :inherit diredfl-file-name)))
+   (diredfl-dir-name ((default
+                       :inherit (underline diredfl-file-name))))
+   (diredfl-date-time ((default
+                        :foreground unspecified)))
+
+   ;;;; Window Divider
+   (window-divider ((default
+                     :foreground unspecified)))
+   (window-divider-first-pixel ((default
+                                 :inherit window-divider)))
+   (window-divider-last-pixel ((default
+                                :inherit window-divider)))
+
+   ;;;; Minibuffer
+   (minibuffer-prompt ((default
+                        :inherit bold)))
+   ;;;;; Ivy
+   (ivy-current-match ((default
+                        :inherit underline)))
+   (ivy-highlight-face ((default
+                         :inherit nil)))
+   (ivy-minibuffer-match-face-1 ((default
+                                  :inherit bold)))
+   (ivy-minibuffer-match-face-2 ((default
+                                  :inherit ivy-minibuffer-match-face-1)))
+   (ivy-minibuffer-match-face-3 ((default
+                                  :inherit ivy-minibuffer-match-face-1)))
+   (ivy-minibuffer-match-face-4 ((default
+                                  :inherit ivy-minibuffer-match-face-1)))
+
+   ;;;; Font Lock
+   (font-lock-keyword-face ((default
+                             :foreground unspecified)))
+   (font-lock-builtin-face ((default
+                             :foreground unspecified
+			     :inherit nil)))
+   (font-lock-function-name-face ((default
+                                   :foreground unspecified)))
+   (font-lock-variable-name-face ((default
+                                   :foreground unspecified)))
+   (font-lock-type-face ((default
+                          :foreground unspecified)))
+   (font-lock-comment-face ((default
+                             :foreground unspecified
+                             :inherit italic)))
+   (font-lock-string-face ((default
+                            :family "Latin Modern Roman Unslanted"
+                            :foreground unspecified)))
+   (font-lock-doc-face ((default
+                         :foreground unspecified
+                         :inherit font-lock-string-face)))
+   (font-lock-doc-markup-face ((default
+                                :foreground unspecified)))
+   (font-lock-constant-face ((default
+                              :foreground unspecified
+                              :inherit nil)))
+   (font-lock-warning-face ((default
+                             :inherit bold)))
+   (font-lock-preprocessor-face ((default
+                                  :foreground unspecified)))
+   (font-lock-negation-char-face ((default
+                                   :inherit nil)))
+
+   ;;;; Parentheses
+   (show-paren-match ((default
+                       :background unspecified
+                       :inherit bold)))
+   (sp-pair-overlay-face ((default
+                           :inherit nil)))
+
+   ;;;; Keys
+   (transient-key ((default
+                    :family "NewComputerModernMono10" ; Transient keys are never aligned, even with `transient-align-variable-pitch'.
                     :foreground unspecified)))
- '(magit-branch-local ((default
-                        :foreground unspecified)))
- '(magit-diff-file-heading ((default
-                             :foreground unspecified)))
- '(magit-branch-remote ((default
+   (modus-themes-key-binding ((default
+                               :foreground unspecified)))
+   
+   ;;;; Magit
+   (magit-section-heading ((default
+                            :foreground unspecified
+                            :inherit (outline-8 variable-pitch))))
+   (magit-hash ((default
+                 :foreground unspecified
+                 :inherit fixed-pitch)))
+   (magit-tag ((default
+                :foreground unspecified)))
+   (magit-filename ((default
+                     :foreground unspecified)))
+   (magit-branch-local ((default
                          :foreground unspecified)))
- '(git-commit-summary ((default
-                        :foreground unspecified)))
- '(git-commit-comment-branch-local ((default
-                                     :foreground unspecified)))
- '(git-commit-comment-branch-remote ((default
+   (magit-diff-file-heading ((default
+                              :foreground unspecified)))
+   (magit-branch-remote ((default
+                          :foreground unspecified)))
+   (git-commit-summary ((default
+                         :foreground unspecified)))
+   (git-commit-comment-branch-local ((default
                                       :foreground unspecified)))
- '(git-commit-comment-file ((default
-                             :foreground unspecified)))
- ;;;;; Log
- '(magit-log-author ((default
-                      :foreground unspecified
-                      :inherit fixed-pitch)))
- '(magit-log-date ((default
-                    :foreground unspecified
-                    :inherit fixed-pitch)))
- '(magit-log-graph ((default
+   (git-commit-comment-branch-remote ((default
+                                       :foreground unspecified)))
+   (git-commit-comment-file ((default
+                              :foreground unspecified)))
+   ;;;;; Log
+   (magit-log-author ((default
+                       :foreground unspecified
+                       :inherit fixed-pitch)))
+   (magit-log-date ((default
                      :foreground unspecified
-                     :inherit (shadow fixed-pitch))))
+                     :inherit fixed-pitch)))
+   (magit-log-graph ((default
+                      :foreground unspecified
+                      :inherit (shadow fixed-pitch))))
 
- ;;;; Compilation
- '(compilation-warning ((default
-                         :weight bold)))
+   ;;;; Compilation
+   (compilation-warning ((default
+                          :weight bold)))
 
- ;;;; Eldoc
- '(eldoc-highlight-function-argument ((default
-                                       :inherit bold)))
+   ;;;; Eldoc
+   (eldoc-highlight-function-argument ((default
+                                        :inherit bold)))
 
- ;;;; Diff HL
- ;; The string "unspecified" here causes the face engine to use values from the `default' face, whereas the symbol `unspecified' will use face inheritance.
- '(diff-hl-change ((default
-                    :inverse-video t
-                    :foreground "unspecified")))
- '(diff-hl-delete ((default
-                    :inverse-video t
-                    :foreground "unspecified")))
- '(diff-hl-insert ((default
-                    :inverse-video t
-                    :foreground "unspecified")))
- '(diff-hl-reverted-hunk-highlight ((default
-                                     :inverse-video t
-                                     :foreground "unspecified")))
+   ;;;; Diff HL
+   ;; The string "unspecified" here causes the face engine to use values from the `default' face, whereas the symbol `unspecified' will use face inheritance.
+   (diff-hl-change ((default
+                     :inverse-video t
+                     :foreground "unspecified")))
+   (diff-hl-delete ((default
+                     :inverse-video t
+                     :foreground "unspecified")))
+   (diff-hl-insert ((default
+                     :inverse-video t
+                     :foreground "unspecified")))
+   (diff-hl-reverted-hunk-highlight ((default
+                                      :inverse-video t
+                                      :foreground "unspecified")))
 
- ;;;; Rec
- '(rec-field-name-face ((default
-                         :inherit outline-8)))
+   ;;;; Rec
+   (rec-field-name-face ((default
+                          :inherit outline-8)))
 
- ;;;; Info
- '(Info-quoted ((default
-                 :inherit nit)))
+   ;;;; Info
+   (Info-quoted ((default
+                  :inherit nit)))
 
- ;;;; Custom
- '(custom-variable-tag ((default
-                         :foreground unspecified)))
- '(custom-state ((default
-                  :foreground unspecified))))
+   ;;;; Custom
+   (custom-variable-tag ((default
+                          :foreground unspecified)))
+   (custom-state ((default
+                   :foreground unspecified)))
+
+   ;;;; Proof General
+   (proof-tactics-name-face ((default
+                              :foreground unspecified)))
+   (coq-solve-tactics-face ((default
+                             :foreground unspecified
+                             :box t)))))
 
 ;;; Variables
 (custom-theme-set-variables
@@ -596,7 +599,8 @@ Headings are comments with more than 2 starting semicolons. Their levels are det
  '(emaχ-global-org-modern-mode t)
  '(org-modern-block-fringe 2)
  '(org-modern-star 'replace)
- '(org-modern-replace-stars "§")
+ '(org-modern-replace-stars "​​•")
+ '(org-modern-hide-stars 'leading)
  ;;;;; Appear
  '(global-org-appear-mode t)
  '(org-appear-autoemphasis t)
@@ -617,5 +621,11 @@ Headings are comments with more than 2 starting semicolons. Their levels are det
                (file-name-as-directory (file-name-directory load-file-name))))
 
 (provide-theme 'emaχ)
+
+;; For testing only:
+(defvar emaχ-loading nil)
+(unless emaχ-loading
+  (let ((emaχ-loading t))
+    (enable-theme 'emaχ)))
 
 ;;; emaχ-theme.el ends here
