@@ -315,8 +315,9 @@ Headings are comments with more than 2 starting semicolons. Their levels are det
                   :inherit outline-2)))
    (org-level-2 ((default
                   :inherit outline-3)))
-   (org-level-2 ((default
-                  :inherit outline-3)))
+   ,@(emaχ--nfaces 3 8
+                   (nface org-level-) ((default
+                                        :inherit default)))
    (org-quote ((default
                 :inherit italic)))
    (org-verse ((default
@@ -330,7 +331,7 @@ Headings are comments with more than 2 starting semicolons. Their levels are det
    ;;;;; Modern
    (org-modern-label ((default
                        :family "NewComputerModernSans10"
-                       :height 0.9)))
+                       :height 0.8)))
 
    ;;;; Mode line
    (header-line ((default
