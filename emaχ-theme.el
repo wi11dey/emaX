@@ -600,8 +600,7 @@ Headings are comments with more than 2 starting semicolons. Their levels are det
  '(emaχ-global-org-modern-mode t)
  '(org-modern-block-fringe 2)
  '(org-modern-star 'replace)
- '(org-modern-replace-stars "​​•")
- '(org-modern-hide-stars 'leading)
+ '(org-modern-replace-stars "§")
  ;;;;; Appear
  '(global-org-appear-mode t)
  '(org-appear-autoemphasis t)
