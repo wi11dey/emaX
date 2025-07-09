@@ -314,6 +314,7 @@ Headings are comments with more than 2 starting semicolons. Their levels are det
    (org-level-1 ((default
                   :inherit outline-2)))
    (org-level-2 ((default
+                  :slant italic
                   :inherit outline-3)))
    ,@(emaχ--nfaces 3 8
                    (nface org-level-) ((default
